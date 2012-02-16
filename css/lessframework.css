@@ -1,0 +1,303 @@
+/* @override http://jancbeck.de/wp/wp-content/themes/jbm/css/lessframework.css */
+
+/*	Less Framework 4
+	http://lessframework.com
+	by Joni Korpi
+	License: http://creativecommons.org/licenses/MIT/	
+*/
+
+
+
+
+/*		Default Layout: 992px. 
+		Gutters: 24px.
+		Outer margins: 48px.
+		Leftover space for scrollbars @1024px: 32px.
+-------------------------------------------------------------------------------
+cols    1     2      3      4      5      6      7      8      9      10
+px      68    160    252    344    436    528    620    712    804    896    */
+
+.wrap {
+	width: 896px;
+	padding: 36px 48px;
+}
+.header {
+	margin-left: -496px;
+	padding-bottom: 0;
+	padding-top: 20px;
+}
+.portfolio {
+	padding: 0;
+	width: 992px;
+}
+.jcarousel-skin-jbm { width: 992px; }
+.jcarousel-skin-jbm .jcarousel-item { width: 992px; }
+
+
+/*		Tablet Layout: 768px.
+		Gutters: 24px.
+		Outer margins: 28px.
+		Inherits styles from: Default Layout.
+-----------------------------------------------------------------
+cols    1     2      3      4      5      6      7      8
+px      68    160    252    344    436    528    620    712    */
+
+@media only screen and (min-width: 768px) and (max-width: 991px) {
+	
+	.wrap {
+		width: 712px;
+		padding: 24px 28px 30px;
+	}
+	.header {
+		margin-left: -384px;
+		padding-bottom: 0;
+		padding-top: 20px;
+	}
+	.portfolio {
+		padding: 0;
+		width: 768px;
+	}
+	.jcarousel-skin-jbm,
+	.jcarousel-skin-jbm img,
+	.jcarousel-skin-jbm .jcarousel-item { width: 768px; }
+	.project-intro {
+		font-size: 15px;
+		line-height: 23px;
+	}
+	.catcher {
+		font-size: 30px;
+		line-height: 1.3;
+	}
+	.profil-avatar {
+		padding: 10px 10px 3px;
+	}
+	.profil-avatar img {
+		width: 190px;
+	}
+	#contact textarea {
+		width: 420px;
+	}
+
+}
+/*		Mobile Layout: 320px.
+		Gutters: 24px.
+		Outer margins: 34px.
+		Inherits styles from: Default Layout.
+---------------------------------------------
+cols    1     2      3
+px      68    160    252    */
+
+@media only screen and (max-width: 767px) {
+	
+	.wrap {
+		width: 252px;
+		padding: 24px 34px 30px;
+	}
+	.header {
+		margin-left: -160px;
+		padding-bottom: 10px !important;
+		padding-top: 20px;
+		text-align: center;
+	}
+	.site-head {
+		float: none;
+	}
+	.site-head .site-description {
+		margin-bottom: 40px;
+	}
+	.site-head .site-logo[data-text]:after {
+		content: attr(data-text);
+		z-index: 10;
+		color: transparent;
+		position: absolute;
+		top: 0;
+		left: 50%;
+		margin-left: -80px;
+	    background-image: -webkit-gradient(linear, left top, left bottom, from(rgba(255,255,255,.5)), to(rgba(255,255,255,0))); /* Saf4+, Chrome */
+	    pointer-events: none;
+	 }
+	.main-nav {
+		float: none;
+		text-align: center;
+		width: auto;
+		height: auto;
+		margin-top: -20px;
+	}
+	.main-nav ul {
+		margin: 0;
+	}
+	.portfolio {
+		padding: 0 !important;
+		width: 320px !important;
+		margin-top: 180px;
+	}
+	.jcarousel-skin-jbm,
+	.jcarousel-skin-jbm img,
+	.jcarousel-skin-jbm .jcarousel-item { width: 320px !important; }
+	.jcarousel-prev {
+		display: none !important;
+	}
+	.jcarousel-next {
+		display: none !important;
+	}
+	.project-description h3 {
+		font-size: 23px;
+	}
+	.project-description {
+		padding-bottom: 15px;
+	}
+	.project-intro {
+		font-size: 15px;
+		line-height: 23px;
+	}
+	.catcher {
+		font-size: 18px;
+		line-height: 1.3;
+		padding-bottom: 20px;
+	}
+	.cols-3 .col {
+		width: auto;
+	}
+	.col,
+	.cols-2-1 .col-2 {
+		float: none;
+	}
+	.profile-avatar {
+		padding: 20px 20px 13px;
+		width: 230px;
+		margin: 10px auto 0;
+		right: 0;
+	}
+	.profile-avatar img {
+		width: auto;
+	}
+	.web-profile {
+		position: static;
+		width: auto;
+		text-align: center;
+	}
+	.web-profile li {
+		float: none;
+		display: inline-block;
+	}
+	#contact {
+		margin-bottom: 150px;
+	}
+	#map {
+		display: none;
+	}
+	#contact textarea,
+	#contact input {
+		width: 240px;
+	}
+	.contact-type {
+		float: none;
+		width: auto;
+		text-align: center;
+	}
+	.footnote li:before {
+		content: "";
+	}
+	
+}
+
+
+
+/*		Wide Mobile Layout: 480px.
+		Gutters: 24px.
+		Outer margins: 22px.
+		Inherits styles from: Default Layout, Mobile Layout.
+------------------------------------------------------------
+cols    1     2      3      4      5
+px      68    160    252    344    436    */
+
+@media only screen and (min-width: 480px) and (max-width: 767px) {
+	
+	.wrap {
+		width: 436px;
+		padding: 18px 22px 24px;
+	}
+	.header {
+		margin-left: -240px;
+		padding-bottom: 10px !important;
+		padding-top: 20px;
+		text-align: center;
+	}
+	.site-head {
+		float: none;
+	}
+	.site-head .site-description {
+		margin-bottom: 30px;
+	}
+	.site-head .site-logo[data-text]:after {
+		content: attr(data-text);
+		z-index: 10;
+		color: transparent;
+		position: absolute;
+		top: 0;
+		left: 50%;
+		margin-left: -80px;
+	    background-image: -webkit-gradient(linear, left top, left bottom, from(rgba(255,255,255,.5)), to(rgba(255,255,255,0))); /* Saf4+, Chrome */
+	    pointer-events: none;
+	 }
+	.main-nav {
+		float: none;
+		text-align: center;
+		width: auto;
+		height: auto;
+		margin-top: -20px;
+	}
+	.main-nav ul {
+		margin: 0;
+	}
+	.portfolio {
+		padding: 0 !important;
+		width: 480px !important;
+		margin-top: 150px;
+	}
+	.jcarousel-skin-jbm,
+	.jcarousel-skin-jbm img,
+	.jcarousel-skin-jbm .jcarousel-item { width: 480px !important; }
+	.jcarousel-prev {
+		display: none !important;
+	}
+	.jcarousel-next {
+		display: none !important;
+	}
+	.cols-3 .col {
+		width: auto;
+	}
+	.col,
+	.cols-2-1 .col-2 {
+		float: none;
+	}
+	.profil-avatar {
+		padding: 20px 20px 13px;
+		width: 230px;
+		margin: 10px auto 0;
+	}
+	.profil-avatar img {
+		width: auto;
+	}
+	.web-profile {
+		position: static;
+		width: auto;
+		text-align: center;
+	}
+	.web-profile li {
+		float: none;
+		display: inline-block;
+	}
+	#map {
+		display: none;
+	}
+	#contact textarea {
+		width: 420px;
+	}
+	.contact-type {
+		float: left;
+		width: 50%;
+	}
+	
+	
+}
