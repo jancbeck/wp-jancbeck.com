@@ -1,6 +1,6 @@
 <?php get_header(); ?>
 
-<section class="wrap portfolio" id="portfolio">
+<div class="wrap portfolio" id="portfolio">
 
 	<ul class="hero">
 		<li class="project project-benni">
@@ -37,15 +37,15 @@
 		</li>
 	</ul>
 
-</section>
+</div>
 
-<section class="wrap fix catcher portfolio-catcher">
+<div class="wrap fix catcher portfolio-catcher">
 
 	<p>Gestalterisches und technisches Know-how aus einer Hand geht nicht? Geht doch!</p>
 
-</section>
+</div>
 
-<section class="wrap" id="services">
+<div class="wrap" id="services">
 
 	<h2 class="section-title">Leistungen</h2>
 	
@@ -79,57 +79,15 @@
 		
 	</div>
 	
-</section>
+</div>
 
-<section class="wrap catcher leistungen-catcher">
+<div class="wrap catcher leistungen-catcher">
 
 	<p>Interesse geweckt? Nehmen Sie <a href="#contact">Kontakt</a> zu mir auf!</p>
 
-</section>
+</div>
 
-<section class="wrap" id="profile">
-
-	<h2 class="section-title">Profil</h2>
-	
-	<div class="fix cols cols-2-1">
-			
-		<article class="col col-1 first">
-			
-			<p>Hallo, mein Name ist Jan Beck und ich gestalte das Web. </p>
-			
-			<p>Seit 2007 arbeite ich als Webdesigner und -entwickler f&uuml;r Selbstständige, kleine und mittelständische Unternehmen, politische Parteien, Vereine, Blogger, Musiker und Künstler.</p>
-			
-			<p>Einer immer komplexer werdenden Welt begegne ich mit schlichten, leicht verständlichen und ansprechend gestalteten Weblösungen. </p>
-			
-			<p>Seit 2010 bin ich Mitglied im Team der <a href="http://www.cccc.de/">Werbeagentur</a> 4c media in Bayreuth.</p>
-		
-		</article>
-		
-		
-		<aside class="c ol col-2 cv last">
-		
-			<p class="profile-avatar"><img src="<?php bloginfo( 'template_directory' ); ?>/assets/profile.jpg" alt="Profilbild: Jan Beck" /></p>
-			
-			<ul class="web-profile">
-				<!--<li class="flickr"><a title="My Photos on flickr" href="http://www.flickr.com/people/jancbeck/">Jan Beck's flickr Account</a></li>-->
-				<li class="dribbble"><a title="Stuff on dribbble" href="http://dribbble.com/jancbeck">Jan Beck's dribbble Account</a></li>
-				<li class="soundcloud"><a title="My Music on Soundcloud" href="http://soundcloud.com/janshi">Jan Beck's Soundcloud Account</a></li>
-				<li class="github"><a title="Social Code on Github" href="http://github.com/jancbeck/">Jan Beck's Github Account</a></li>
-			</ul>
-			
-		</aside>
-
-	</div>
-
-</section>
-
-<section class="wrap catcher contact-catcher">
-
-	<p>Ich gestalte das Web. Was kann ich für Sie tun?</p>
-
-</section>
-
-<footer id="contact">
+<div id="contact">
 
 	<div class="wrap">
 
@@ -182,6 +140,13 @@
 					</dl>
 				
 				</div>
+				
+				<ul class="web-profile">
+					<!--<li class="flickr"><a title="My Photos on flickr" href="http://www.flickr.com/people/jancbeck/">Jan Beck's flickr Account</a></li>-->
+					<li class="dribbble"><a title="Stuff on dribbble" href="http://dribbble.com/jancbeck">Jan Beck's dribbble Account</a></li>
+					<li class="soundcloud"><a title="My Music on Soundcloud" href="http://soundcloud.com/janshi">Jan Beck's Soundcloud Account</a></li>
+					<li class="github"><a title="Social Code on Github" href="http://github.com/jancbeck/">Jan Beck's Github Account</a></li>
+				</ul>
 			
 			</div>
 		
@@ -194,7 +159,7 @@
 
 	</div>
 	
-</footer>
+</div>
 
 <?php get_sidebar(); ?>
 
