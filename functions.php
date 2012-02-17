@@ -2,13 +2,7 @@
 
 // Add CSS to Visual Editor
 add_theme_support('editor_style');
-add_editor_style('css/style-editor.css');
-
-// Add an excerpt box for pages
-add_post_type_support( 'page', 'excerpt' );   
-
-// Prevents WordPress from testing ssl capability on domain.com/xmlrpc.php?rsd
-remove_filter('atom_service_url','atom_service_url_filter');
+add_editor_style('css/style-editor.css'); 
 
 // hide adminbar
 add_filter('show_admin_bar', '__return_false');
@@ -16,31 +10,11 @@ add_filter('show_admin_bar', '__return_false');
 // removes detailed login error information for security
 add_filter('login_errors', create_function('$a', "return null;"));
 
-// Scripts
-add_action('init', 'custom_scripts');
-
-function custom_scripts() {
-	if( !is_admin() ){
-	   wp_dequeue_script('jquery');
-	   wp_deregister_script('l10n');
-	}
-}
-
 // Extending Auto Logout Period   
 function keep_me_logged_in_for_1_year( $expirein ) {
    return 31556926; // 1 year in seconds
 }
 add_filter( 'auth_cookie_expiration', 'keep_me_logged_in_for_1_year' );   
-
-// add the category name to body class
-function category_id_class($classes) {
-	global $post;
-	foreach((get_the_category($post->ID)) as $category)
-	$classes[] = $category->category_nicename;
-	return $classes;
-}
-add_filter('post_class', 'category_id_class');
-add_filter('body_class', 'category_id_class');
 
 
 // Cleanup head
@@ -66,7 +40,36 @@ function remheadlink() {
 	// Remove XHTML generator showing WP version
 	remove_action( 'wp_head', 'wp_generator' );
 }
+ 
+// loads jQuery from Google CDN or local fallback
+// http://www.renaissance-design.net/2012/load-jquery-from-googles-cdn-with-local-fallback-in-wordpress/
    
+function theme_scripts() {
+
+	$url = 'http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js';
+	wp_deregister_script('jquery');
+	if (get_transient('google_jquery') == true) {	    
+		wp_register_script('jquery', $url, array(), null, true);
+	} 
+	else {
+		$resp = wp_remote_head($url);
+		if (!is_wp_error($resp) && 200 == $resp['response']['code']) {
+			set_transient('google_jquery', true, 60 * 5);
+			wp_register_script('jquery', $url, array(), null, true);
+		} 
+		else {
+			set_transient('google_jquery', false, 60 * 5);
+			$url = get_bloginfo('wpurl') . '/wp-includes/js/jquery/jquery.js';
+			wp_register_script('jquery', $url, array(), '1.7.1', true);
+		}
+	}
+	wp_enqueue_script('jquery');
+	wp_deregister_script('l10n');
+	//wp_enqueue_script('functions', get_template_directory_uri() . '/js/functions.js', array('jquery'), '1.0', true );
+	wp_enqueue_script('init', get_template_directory_uri() . '/js/init.js', array('jquery'), '1.0', true );
+}
+add_action('wp_enqueue_scripts', 'theme_scripts');
+
 
    
 
