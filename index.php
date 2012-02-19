@@ -40,13 +40,7 @@
 		<p class="site-description"><?php echo bloginfo( 'description' ) ?></p>
 	</div>	
 
-	<div class="main-nav">
-		<ul>
-			<li><a href="<?php echo bloginfo('wpurl'); ?>/#portfolio">Referenzen</a></li>
-			<li><a href="<?php echo bloginfo('wpurl'); ?>/#services">Leistungen</a></li>
-			<li><a href="<?php echo bloginfo('wpurl'); ?>/#contact">Kontakt</a></li>
-		</ul>
-	</div>
+	<?php wp_nav_menu( array( 'theme_location' => 'main-nav', 'container_class' => 'nav-main' ) ); ?>
 
 </div>
 

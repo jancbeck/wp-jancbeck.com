@@ -64,7 +64,7 @@ body {
 	margin-bottom: 0;
 	line-height: 1;
 }
-.main-nav {
+.nav-main {
 	float: right;
 	text-align: right;
 	margin-top: -20px;
@@ -72,23 +72,23 @@ body {
 	height: 100px;
 	font-size: 18px;
 }
-.main-nav ul {
+.nav-main ul {
 	margin: 65px 0 0;
 	overflow: hidden;
 }
-.main-nav li {
+.nav-main li {
 	display: inline;
 	margin-left: 30px;
 }
-.main-nav li a {
+.nav-main li a {
 	color: #8c9ca2;
 	border: none;
 	font-weight: bold;
 }
-.main-nav li a:hover {
+.nav-main li a:hover {
 	color: #38b3e1;
 }
-.main-nav li a.active {
+.nav-main li a.active {
 	-webkit-transition: color .3s ease-in;
 	-moz-transition: color .3s ease-in;
 	transition: color .3s ease-in;
