@@ -78,40 +78,28 @@
 	<h2 class="section-title"><?php _e('Leistungen'); ?></h2>
 	
 	<div class="fix cols cols-3">
-	
-		<div class="col first">
-	
-			<h3 id="webdesign">Webdesign</h3>
-			
-			<p>Webdesign ist für Sie bloß Print auf 1024 Pixeln Breite?  Dann fürchte ich bin ich der Falsche für Sie. Das Web ist ein funktionales, kein graphisches Medium. Es erfindet sich alle 5 Jahre selbst neu und will jedes mal wieder neugestaltet, -entwickelt und -verstanden werden. Dafür bin ich ihr Navigator. Lassen Sie uns gemeinsam die Grenzen des Machbaren erkunden.
-			</p>
 		
-		</div>
-		
+		<?php $services = get_posts(array('post_parent' => 18, 'orderby' => 'menu_order', 'post_type' => 'page'));
+
+		foreach ($services as $service) :  ?>
+	
 		<div class="col">
+	
+			<h3 id="<?php echo $service->post_name; ?>"><?php echo $service->post_title; ?></h3>
+			
+			<p><?php echo $service->post_content; ?></p>
 		
-			<h3 id="web-development">Webentwicklung</h3>
-			
-			<p>Damit Ihre Website nicht nur schön aussieht sondern auch mit Freude zu benutzen ist, kümmere ich mich um eine technisch einwandfreie Umsetzung nach modernen Standards. Ich folge dabei der Philosophie des <a href="http://de.wikipedia.org/wiki/Progressive_Verbesserung" title="Link zu Wikipedia Artikel 'Progressive Enhancement'">Progressive Enhancements</a> damit Ihre Nachricht das größtmögliche Publikum erreicht.
-			</p>
-			
-		</div>
-			
-		<div class="col last">
-			
-			<h3 id="wordpress">WordPress</h3>
-			
-			<p>In den letzten 5 Jahren habe ich über 30 Projekte mit dem weltweit <a href="http://w3techs.com/technologies/overview/content_management/all" title="Link zu 'Usage of content management systems for websites'">beliebtesten</a> CMS realisiert. Ich behaupte: Jedes Layout ist mit Wordpress umsetzbar. Teilen Sie meine Begeisterung für Wordpress in dem Sie uns gemeinsam anspruchsvolle und dennoch intuitiv bedienbare Webprojekte realisieren lassen.
-			</p>
 		</div>
 		
+		<?php endforeach; ?>
+				
 	</div>
 	
 </div>
 
 <div class="wrap catcher leistungen-catcher">
 
-	<p>Interesse geweckt? Nehmen Sie <a href="#contact">Kontakt</a> zu mir auf!</p>
+	<p><?php _e('Interesse geweckt? Nehmen Sie <a href="#contact">Kontakt</a> zu mir auf!'); ?></p>
 
 </div>
 
@@ -119,7 +107,7 @@
 
 	<div class="wrap">
 
-		<h2 class="section-title">Kontakt</h2>
+		<h2 class="section-title"><?php _e('Kontakt'); ?></h2>
 	
 		<div class="fix cols cols-2-1">
 		
@@ -157,7 +145,7 @@
 						<dd>
 							Jan Beck
 						</dd>
-						<dt>Anschrift</dt>
+						<dt><?php _e('Anschrift'); ?></dt>
 						<dd>
 							Brandenburger Straße 34<br/>
 							95448 Bayreuth

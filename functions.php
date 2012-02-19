@@ -31,7 +31,6 @@ if ( function_exists( 'register_nav_menus' ) ) {
 	);
 }
 
-
 // Cleanup head
 add_action('init', 'remheadlink');
 

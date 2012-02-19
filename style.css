@@ -196,7 +196,8 @@ img.alignright{ margin: 0 0 1.5em 1.5em; }
 	width:48%;
 	margin-left:4%; /* 2 equal width columns layout - default */
 	}	
-.cols-3 .col { width:30%; margin-left:5%; } /* 3 equal width columns layout */
+.cols-3 { margin-left: -1.5%; }
+.cols-3 .col { width:30%; margin: 0 1.5%; } /* 3 equal width columns layout */
 .cols-4 .col { width:22%; margin-left:4%; } /* 4 equal width columns layout */
 .cols-5 .col { width:16%; margin-left:5%; } /* 5 equal width columns layout */
 

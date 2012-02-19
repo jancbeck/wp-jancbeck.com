@@ -8,8 +8,6 @@ Private portfolio theme hosted on github.
 * defuck style.css
 * Slider thumbs
 * Rewrite service text
-* make it WPML-ready
 * Add flex Slider
 * Smooth scroll
-* get real content from wpdb
 * Maybe look at it on IE… but just maybe and just once…
