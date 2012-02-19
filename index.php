@@ -9,7 +9,7 @@
 	
 	<script>(function(H){H.className=H.className.replace(/\bno-js\b/,'js')})(document.documentElement) /* removes no-js class */</script>
 	
-	<title><?php wp_title('|', true, 'right'); bloginfo('name'); ?></title>
+	<title><?php bloginfo('name'); ?> | <?php bloginfo('description'); ?></title>
 	
 	<meta name="generator" content="WordPress" />
 	
@@ -47,51 +47,35 @@
 <div class="wrap portfolio" id="portfolio">
 
 	<ul class="hero">
-		<li class="project project-benni">
-			<img src="<?php bloginfo( 'template_directory' ); ?>/assets/benni.jpg" alt="Referenz 1" class="project-media media-benni" />
+	
+		<?php $projects = get_posts(array('post_type' => 'project')); 
+			
+		foreach ($projects as $project) : ?>
+		
+		<li class="project <?php echo $project->post_name; ?>">
+			<?php echo get_the_post_thumbnail($project->ID, 'full'); ?>
 			<div class="project-description">
-				<h3>Benjamin Messingschlager Mediendesign</h3>
-				<p class="project-intro">Benjamin Messingschlager versteht sich als Handwerker mit Auge für Details und hohem Anspruch an Form und Inhalt. Entsprechend hoch waren auch die Erwartungen an die technische Realisation dieser Wordpress Umsetzung.  <a href="http://benjaminmessingschlager.de/">Seite besuchen</a>
+				<h3><?php echo $project->post_title; ?></h3>
+				<p class="project-intro"><?php echo $project->post_excerpt; ?> <a href="<?php echo get_field('href', $project->ID); ?>"><?php _e('Seite besuchen'); ?></a>
 				</p>
 			</div>
 		</li>
-		<li class="project project-malte">
-			<img src="<?php bloginfo( 'template_directory' ); ?>/assets/malte.jpg" alt="Referenz 2" class="project-media media-malte" />
-			<div class="project-description">
-				<h3>Malte Pietschmann Portfolio</h3>
-				<p class="project-intro">Die Fotografien von Malte Pietschmann sprechen für sich und verlangen eine Bühne zur Präsentation frei von Ablenkung und Hektik. Das schlichte und dennoch hochangepasste Template verfügt über Social Media Anbindung und genügend Optionen um bequem verwaltet zu werden. <a href="http://maltepietschmann.com/">Seite besuchen</a>
-				</p>
-			</div>
-		</li>
-		<li class="project project-illitheas">
-			<img src="<?php bloginfo( 'template_directory' ); ?>/assets/illitheas.jpg" alt="Referenz 3" class="project-media media-illitheas" />
-			<div class="project-description">
-				<h3>Illitheas – Trance &amp; Progressive</h3>
-				<p class="project-intro">Bernie "Illitheas" Gums melodische elektronische Klänge haben es bis in die Sets von internationalen Top DJs geschafft. Seine Website bilden die Plattform für die Eigenpromotion, Kommunikation mit den Fans sowie die Veröffentlichung von neuen Stücken, Fotos und Videos. <a href="http://illitheas.de/">Seite besuchen</a>
-				</p>
-			</div>
-		</li>
-		<li class="project project-cintia">
-			<img src="<?php bloginfo( 'template_directory' ); ?>/assets/cintia.jpg" alt="Referenz 4" class="project-media media-cintia" />
-			<div class="project-description">
-				<h3>Cintia Barosso Studio</h3>
-				<p class="project-intro">Vorbei sind die Zeiten in denen innovative Gestaltung, lebhafte Animationen und interaktive Benutzerführung Flashseiten vorenthalten waren. Dieses Fotoportfolio basiert auf jQuery und CSS3 und vereint die standardkonforme Webwelt mit der spannend gestalteten. <a href="http://www.cbastudio.de/fashion/">Seite besuchen</a>
-				</p>
-			</div>
-		</li>
+				
+		<?php endforeach; ?>
+		
 	</ul>
 
 </div>
 
 <div class="wrap fix catcher portfolio-catcher">
 
-	<p>Gestalterisches und technisches Know-how aus einer Hand geht nicht? Geht doch!</p>
+	<p><?php _e('Gestalterisches und technisches Know-how aus einer Hand geht nicht? Geht doch!'); ?></p>
 
 </div>
 
 <div class="wrap" id="services">
 
-	<h2 class="section-title">Leistungen</h2>
+	<h2 class="section-title"><?php _e('Leistungen'); ?></h2>
 	
 	<div class="fix cols cols-3">
 	
