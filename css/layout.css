@@ -146,6 +146,8 @@ body {
 	background-repeat: no-repeat;
 	background-position: 0 -1px;
 }
+#services li:before { content: ""; width: 10px; height: 3px; display: block; position: absolute; left: -20px; top: 10px; background: #CACDCE; }
+
 h3#webdesign {
 	background-image: url(../images/jbm_ico_design.png);
 }
