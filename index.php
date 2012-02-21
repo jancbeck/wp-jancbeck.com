@@ -44,7 +44,7 @@
 
 </div>
 
-<div class="wrap portfolio" id="portfolio">
+<div class="wrap section portfolio" id="portfolio">
 
 	<ul class="hero">
 	
@@ -73,7 +73,7 @@
 
 </div>
 
-<div class="wrap" id="services">
+<div class="wrap section" id="services">
 
 	<h2 class="section-title"><?php _e('Leistungen'); ?></h2>
 	
@@ -103,7 +103,7 @@
 
 </div>
 
-<div id="contact">
+<div class="section contact" id="contact">
 
 	<div class="wrap">
 

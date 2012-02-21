@@ -1,25 +1,9 @@
 $(document).ready(function() {
 
-	
-
-	
-	// JCAROUSEL:
-	// Making preparations for the carousel
-	// and creating thumbnails so the only appear when javascript is available
-	
-	function doLater() {
-		
-		$('.project-description, .portfolio-catcher p').hide();
-		$('.hero').addClass('jcarousel-skin-jbm');
-		$('.portfolio-catcher').addClass('portfolio-thumbs');
-		$('.portfolio ul')
-			.clone()
-			.appendTo('.portfolio-catcher')
-			.removeClass('jcarousel-skin-jbm');
-		$('.portfolio-catcher').show();
-		$('.portfolio-catcher .project-description').remove();
-	
-	}
+	// jQuery Waypoints
+	$('.section').waypoint(function(e, d) {
+		console.log(e, d, e.target.id);
+	}, { offset: 100});
     
     // jQuery fadeThenSlideToggle
     // http://stackoverflow.com/questions/734554/jquery-fadeout-then-slideup
@@ -80,4 +64,6 @@ function wpcf7_on_sent_ok() {
 	$('.wpcf7').append($('.wpcf7-mail-sent-ok'));
 	$('.wpcf7-form').fadeThenSlideToggle();
 }
+
+
 
