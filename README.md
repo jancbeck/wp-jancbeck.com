@@ -10,5 +10,4 @@ Private portfolio theme hosted on github.
 * Rewrite service text
 * Add flex Slider
 * services display
-* Smooth scroll
 * Maybe look at it on IE… but just maybe and just once…

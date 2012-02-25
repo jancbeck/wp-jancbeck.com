@@ -10,6 +10,32 @@ jQuery.fn.fadeThenSlideToggle = function(speed, easing, callback) {
 };
 
 $(document).ready(function() {
+	
+	// throttling scroll event
+	// http://ejohn.org/blog/learning-from-twitter/
+	
+	var didScroll = false,
+		$window = $(window),
+		$sections = $('.section');
+	
+	$(window).scroll(function() {
+	    didScroll = true;
+	});
+	
+	setInterval(function() {
+	    if (didScroll) {
+	        didScroll = false;
+	        
+	        var windowScrollTop = $window.scrollTop();
+	        	        
+	        $sections.each(function() {
+	        	if ($(this).offset().top <= windowScrollTop) {
+					log($(this).attr('id'));
+	        	}
+	        })
+	        
+	    }
+	}, 500);
     
     // Show description when the user clicks on slide
     
@@ -18,8 +44,12 @@ $(document).ready(function() {
     	$('.project-description').fadeThenSlideToggle();
     });     
     
+    
     // Insert GoogleMaps markup
     $('#contact .wrap').after('<div id="map" />');
+    
+    
+    
     
 });
 
