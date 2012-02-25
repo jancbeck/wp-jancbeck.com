@@ -79,7 +79,7 @@ function theme_scripts() {
 	}
 	wp_enqueue_script('jquery');
 	wp_deregister_script('l10n');
-	//wp_enqueue_script('functions', get_template_directory_uri() . '/js/functions.js', array('jquery'), '1.0', true );
+	wp_enqueue_script('functions', get_template_directory_uri() . '/js/functions.js', array('jquery'), '1.0', true );
 	wp_enqueue_script('waypoints', get_template_directory_uri() . '/js/waypoints.min.js', array('jquery'), '1.0', true );
 	wp_enqueue_script('init', get_template_directory_uri() . '/js/init.js', array('jquery'), '1.0', true );
 }
