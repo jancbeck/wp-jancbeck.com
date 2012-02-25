@@ -1,60 +1,43 @@
-$(document).ready(function() {
+// jQuery fadeThenSlideToggle
+// http://stackoverflow.com/questions/734554/jquery-fadeout-then-slideup
 
-	// jQuery Waypoints
-	$('.section').waypoint(function(e, d) {
-		console.log(e, d, e.target.id);
-	}, { offset: 100});
-    
-    // jQuery fadeThenSlideToggle
-    // http://stackoverflow.com/questions/734554/jquery-fadeout-then-slideup
-    
-    jQuery.fn.fadeThenSlideToggle = function(speed, easing, callback) {
-		if (this.is(":hidden")) {
-			return this.slideDown(speed, easing).fadeTo(speed, 1, easing, callback);
-		} else {
-			return this.fadeTo(speed, 0, easing).slideUp(speed, easing, callback);
-		}
-    };
-    
+jQuery.fn.fadeThenSlideToggle = function(speed, easing, callback) {
+	if (this.is(":hidden")) {
+		return this.slideDown(speed, easing).fadeTo(speed, 1, easing, callback);
+	} else {
+		return this.fadeTo(speed, 0, easing).slideUp(speed, easing, callback);
+	}
+};
+
+$(document).ready(function() {
     
     // Show description when the user clicks on slide
     
-    $('.jcarousel-container .project-media').click(function() {
+    $('.project-description').hide();
+    $('.project-media').click(function() {
     	$('.project-description').fadeThenSlideToggle();
     });     
     
     // Insert GoogleMaps markup
-    $('#contact .wrap').after('<div id="map">');
+    $('#contact .wrap').after('<div id="map" />');
     
 });
 
 
-// match active navigation item to users position
-// TODO: make this more performant
+// Animate Scrolling
 
-function navPosition() { 
+$('.nav-main a').click(function(e) {
 	
-	// store the current views offset 
-	// to the top of the page
-	var winTop = $(window).scrollTop(),
-		offset = $('.header').outerHeight();
-
-	$('.main-nav a[href*=#]').each(function(index) {		
-		
-		// gether all data we need about the target and the window offset
-	    var href 	= $(this).attr('href'),
-	    	target	= $(href.substr($('link[rel="index"]').attr('href').length+1)),
-	    	targetTop = target.offset().top - offset-1,
-	    	targetBottom = target.offset().top + target.outerHeight()- offset-1;
-	   	    
-	    // Check in what section of the page we are
-	    if(winTop > targetTop && winTop < targetBottom) {
-	    	$('.main-nav a').removeClass('active');
-	    	$(this).addClass('active');
-	    }
-	});
-
-};
+	e.preventDefault();
+	
+	var target = $($(this).attr('href')),
+		offset = target.offset(),
+		adjust = -100; // corrects for fixed header height
+	
+	$('html, body').animate({
+		scrollTop : offset.top + adjust
+	}, 'slow');		
+});
 
 
 // Fold contact form when message is sent
