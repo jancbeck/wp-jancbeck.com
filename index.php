@@ -53,7 +53,7 @@
 		foreach ($projects as $project) : ?>
 		
 		<li class="project <?php echo $project->post_name; ?>">
-			<?php echo get_the_post_thumbnail($project->ID, 'full'); ?>
+			<div class="project-media"><?php echo get_the_post_thumbnail($project->ID, 'full'); ?></div>
 			<div class="project-description">
 				<h3><?php echo $project->post_title; ?></h3>
 				<p class="project-intro"><?php echo $project->post_excerpt; ?> <a href="<?php echo get_field('href', $project->ID); ?>"><?php _e('Seite besuchen'); ?></a>
