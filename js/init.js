@@ -16,24 +16,52 @@ $(document).ready(function() {
 	
 	var didScroll = false,
 		$window = $(window),
-		$sections = $('.section');
+		$sections = $('.section'),
+		$navItems = $('#menu-main-navigation a');
+	
+	// wait until section elements have their final height	
+	$sections.ready(function() {
+		
+		// cache offset values 
+		$sections.each(function() {
+			this.sectionTop = $(this).offset().top - 100;
+			this.sectionBottom = $(this).offset().top + $(this).outerHeight() - 100;
+		});
+	
+	})
 	
 	$(window).scroll(function() {
 	    didScroll = true;
 	});
 	
+	function highlightCurrentNavItem() {
+	
+		var windowScrollTop = $window.scrollTop();
+			        	        
+		$sections.each(function() {
+		    
+		    // in which section are we
+			if (this.sectionTop <= windowScrollTop && this.sectionBottom >= windowScrollTop) {
+				
+				var sectionID = $(this).attr('id'),
+					$currentNavItem = $('#menu-main-navigation a.current');
+				
+				// if current section is already highlighted in menu	        			        		
+				if ($currentNavItem.attr('href') != '#' + sectionID) {
+				
+					$currentNavItem.removeClass('current');
+					$navItems.filter('a[href=#' + sectionID + ']').addClass('current');
+				}	        			
+			}
+		})
+	}
+	
 	setInterval(function() {
+	
 	    if (didScroll) {
 	        didScroll = false;
 	        
-	        var windowScrollTop = $window.scrollTop();
-	        	        
-	        $sections.each(function() {
-	        	if ($(this).offset().top <= windowScrollTop) {
-					log($(this).attr('id'));
-	        	}
-	        })
-	        
+	        highlightCurrentNavItem();
 	    }
 	}, 500);
     

@@ -88,7 +88,7 @@ body {
 .nav-main li a:hover {
 	color: #38b3e1;
 }
-.nav-main li a.active {
+.nav-main li a.current {
 	-webkit-transition: color .3s ease-in;
 	-moz-transition: color .3s ease-in;
 	transition: color .3s ease-in;
