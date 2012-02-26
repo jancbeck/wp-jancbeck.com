@@ -15,20 +15,26 @@ $(document).ready(function() {
 	// http://ejohn.org/blog/learning-from-twitter/
 	
 	var didScroll = false,
+	
+	// cache DOM queries
 		$window = $(window),
 		$sections = $('.section'),
-		$navItems = $('#menu-main-navigation a');
+		$navItems = $('#menu-main-navigation').find('a'),
+		$currentNavItem = $navItems.filter('.current');
 	
 	// wait until section elements have their final height	
-	$sections.ready(function() {
+	$sections.ready(getSectionsDimensions);
+	
+	function getSectionsDimensions() {
 		
 		// cache offset values 
 		$sections.each(function() {
 			this.sectionTop = $(this).offset().top - 100;
 			this.sectionBottom = $(this).offset().top + $(this).outerHeight() - 100;
+			this.sectionID = $(this).attr('id');
 		});
-	
-	})
+		
+	}
 	
 	$(window).scroll(function() {
 	    didScroll = true;
@@ -42,15 +48,11 @@ $(document).ready(function() {
 		    
 		    // in which section are we
 			if (this.sectionTop <= windowScrollTop && this.sectionBottom >= windowScrollTop) {
-				
-				var sectionID = $(this).attr('id'),
-					$currentNavItem = $('#menu-main-navigation a.current');
-				
+								
 				// if current section is already highlighted in menu	        			        		
-				if ($currentNavItem.attr('href') != '#' + sectionID) {
-				
+				if ($currentNavItem.attr('href') != '#' + this.sectionID) {
 					$currentNavItem.removeClass('current');
-					$navItems.filter('a[href=#' + sectionID + ']').addClass('current');
+					$currentNavItem = $navItems.filter('a[href=#' + this.sectionID + ']').addClass('current');
 				}	        			
 			}
 		})
@@ -65,11 +67,13 @@ $(document).ready(function() {
 	    }
 	}, 500);
     
+    
     // Show description when the user clicks on slide
     
     $('.project-description').hide();
     $('.project-media').click(function() {
-    	$('.project-description').fadeThenSlideToggle();
+    	$('.project-description').fadeThenSlideToggle(null, null, getSectionsDimensions);
+    	
     });     
     
     

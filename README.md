@@ -6,8 +6,7 @@ Private portfolio theme hosted on github.
 
 * defuck style.css
 * Slider thumbs
-* Rewrite service text
 * Add flex Slider
-* services display
+* services styling
 * replace icon images with webfont
 * Maybe look at it on IE… but just maybe and just once…
