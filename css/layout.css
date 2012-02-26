@@ -1,12 +1,8 @@
 /* @group Layout
 -------------------------------------------------------------- */
 
-
-.jcarousel-skin-jbm { width: 992px; }
-.jcarousel-skin-jbm .jcarousel-item { width: 992px; }
-
 body { 
-	background: #e2e8ec url(../images/bluenoise.png); 
+	background: #e2e8ec url(../images/bluenoise.jpg); 
 }
 .wrap { 
 	background: #fff; 
