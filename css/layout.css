@@ -2,14 +2,14 @@
 -------------------------------------------------------------- */
 
 body { 
-	background: #e2e8ec url(../images/bluenoise.jpg); 
+	background: #e2e8ec url(../images/bluenoise.jpg);
 }
 .wrap { 
 	background: #fff; 
 	margin: auto; 
-	-webkit-box-shadow: 0 0 10px rgba(0,0,0,0.1), 0 0 0 1px rgba(0,0,0,.02);
-	-moz-box-shadow: 0 0 10px rgba(0,0,0,0.1), 0 0 0 1px rgba(0,0,0,.02);
-	box-shadow: 0 0 10px rgba(0,0,0,0.1), 0 0 0 1px rgba(0,0,0,.02);
+	-webkit-box-shadow: 0 0 7px rgba(0,0,0,0.1), 0 0 0 1px rgba(0,0,0,.02);
+	-moz-box-shadow: 0 0 7px rgba(0,0,0,0.1), 0 0 0 1px rgba(0,0,0,.02);
+	box-shadow: 0 0 7px rgba(0,0,0,0.1), 0 0 0 1px rgba(0,0,0,.02);
 	position: relative;
  }
 .header {
