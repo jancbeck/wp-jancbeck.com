@@ -1,3 +1,6 @@
+/* @override 
+	http://jancbeck.de/web/jancbeck.de/wp-content/themes/jbm/style.css */
+
 /*
 	Theme Name:  	Jan Beck 
 	Theme URI:		http://jancbeck.de
@@ -12,12 +15,12 @@
 /* @group Headings
 -------------------------------------------------------------- */
 
-h1,h2,h3,h4,h5,h6 { font-weight: bold; margin-bottom: 1em; color: #212526; margin-top: 0; }
+h1,h2,h3,h4,h5,h6 { font-weight: bold; color: #212526; margin-top: 0; }
 
-h1, .huge 	{ font-size:48px; line-height:64px; letter-spacing:-2px;  }
-h2, .large 	{ font-size:36px; line-height:36px; color: #8c9ca2; }
-h3, .bigger { font-size:26px; line-height:30px; }
-h4, .big 	{ font-size:22px; line-height:30px; }
+h1 { font-size: 48px; line-height: 64px; letter-spacing: -2px;  }
+h2 { font-size: 36px; line-height: 36px; color: #8c9ca2; }
+h3 { font-size: 26px; line-height: 30px; }
+h4 { font-size: 22px; line-height: 30px; }
 
 /* @end */
 
@@ -48,29 +51,34 @@ h6 a:hover { color: #38b3e1 }
 /* @group Typography & Text Elements
 -------------------------------------------------------------- */
 
-body { color: #778488; font-size: 16px; line-height: 1.6; font-family: 'ff-meta-web-pro-1', Arial, sans-serif; }
+body { color: #778488; line-height: 1.6; font-family: 'ff-meta-web-pro-1', Arial, sans-serif; }
 
-p			{ margin: 0 0 1.5em; }
-blockquote  { margin: 1.5em; color: #8c9ca2; font-style: italic; }
+blockquote {
+    margin: 1.5em;
+    color: #888;
+    font-style: italic;
+}
 
-blockquote:before, blockquote:after, q:before, q:after { content: ""; content:none; }
-blockquote, q { quotes: none; }
+blockquote:before,
+blockquote:after,
+q:before,
+q:after {
+    content: "";
+    content: none;
+}
 
-strong		{ font-weight: bold; }
-em,dfn		{ font-style: italic; }
-dfn			{ font-weight: bold; }
-sup, sub	{ line-height: 0; }
-.small, small { font-size: 13px; margin-bottom: 1.875em; line-height: 1.875em; }
+blockquote,
+q { quotes: none }
 
-abbr,
-acronym	 { border-bottom: 1px dotted #8c9ca2; cursor:help;}
-address	 { margin: 0 0 1.5em; font-style: normal; }
-del		 { color:#666; }
 
-pre 		{ margin: 1.5em 0; white-space: pre; white-space: pre-wrap; white-space: pre-line; word-wrap: break-word; }
-pre,code,tt { font: 1em 'andale mono', 'lucida console', monospace; line-height: 1.5; }
-
-hr 	{ display: block; height: 1px; border: 0; border-top: 1px solid #dfdfdf; margin: 3em 0; padding: 0; }
+hr {
+    display: block;
+    height: 1px;
+    border: 0;
+    border-top: 1px solid #dfdfdf;
+    margin: 3em 0;
+    padding: 0;
+}
 
 /* @end */
 
@@ -78,18 +86,11 @@ hr 	{ display: block; height: 1px; border: 0; border-top: 1px solid #dfdfdf; mar
 /* @group Lists
 -------------------------------------------------------------- */
 
-li ul,
-li ol	   { margin:0 1.5em; }
-ul, ol	   { margin: 0 1.5em 1.5em 1.5em; }
-
-ul		   { list-style-type: disc; padding-left: 30px; list-style: none; }
-ol		   { list-style-type: decimal; }
-
+ul		   { list-style: none; }
 li 		   { position: relative; }
 
-dl		   { margin: 0 0 1.5em 0; }
 dl dt	   { font-weight: bold; }
-dl dd	   { margin-left: .5em; margin-bottom: .5em;}
+dl dd	   { margin-left: .5em; margin-bottom: .5em; }
 
 /* @end */
 
@@ -97,12 +98,29 @@ dl dd	   { margin-left: .5em; margin-bottom: .5em;}
 /* @group Tables
 -------------------------------------------------------------- */
 
-table		 { margin-bottom: 1.5em; width:100%; border-collapse: collapse; border-spacing: 0; }
-th			 { font-weight: bold; }
-thead th 	 { background: #353b3d; color: white; }
-th,td,caption{ padding: 4px 10px 4px 5px; vertical-align: middle; }
-tfoot		 { font-style: italic; }
-caption		 { background: #eee; }
+table { margin-bottom: 1.5em }
+
+th { font-weight: bold }
+
+thead th {
+    background: #333;
+    color: white;
+    text-align: left;
+}
+
+th,
+td,
+caption {
+    padding: 4px 10px 4px 5px;
+    vertical-align: middle;
+}
+
+tfoot th {
+    background: #eee;
+    text-align: left;
+}
+
+caption { background: #eee }
 
 /* @end */
 
@@ -110,32 +128,45 @@ caption		 { background: #eee; }
 /* @group Forms
 -------------------------------------------------------------- */
 
-form		{ margin: 0 0 1.5em; }
-label		{ display:block; }
-legend 	 	{ font-weight:bold; padding: 2px 5px; }
-fieldset 	{ border: 1px solid #ccc; padding: 1em 2em; margin:0 0 1.5em 0; }
+form { margin-bottom: 1.5em }
+
 form .set 	{ clear:both; margin: .5em 0 1em;  }
 
+legend {
+    font-weight: bold;
+    padding: 1em;
+    margin-left: -1em;
+}
+
+fieldset {
+	padding: 1em 2em;
+	margin-bottom: 2em;
+	border: none;
+}
+
 input,
-textarea, 
-select { border:1px solid #ddd; padding:5px; background:#fff; display:block; line-height:1.25em; margin:0; font-size: 1em; vertical-align:middle; }
+textarea,
+select {
+    border: 1px solid #ddd;
+    padding: 5px;
+    background: #fff;
+    margin: 0;
+    font-size: 1em;
+}
 
-input:focus,  
-textarea:focus, 
-select:focus { background: #f5f5f5; outline: none; }
-
-select 	 { margin-top: 5px; }
-textarea { resize: none; }
-
+input:focus,
+textarea:focus,
+select:focus {
+    background: #f5f5f5;
+    outline: none;
+}
+textarea {
+	height: 200px;
+	resize: vertical;
+}
 button, input[type="submit"] { border:none; background:#abb; color:#fff; font-size: 13px; padding:0 2.5em; height:2em; line-height:16px; border-radius: 15px; font-weight: bold; }
 button:hover, input[type="submit"]:hover { background:#545e61; color:#fff; }
 button:active, input[type="submit"]:active { background:#353b3d; color:#fff; top: 1px; position: relative; }
-
-input[type="radio"] { vertical-align: text-bottom; }
-input[type="checkbox"] { vertical-align: bottom; *vertical-align: baseline; }
-.ie6 input { vertical-align: text-bottom; }
-
-label, input[type=button], input[type=submit], button { cursor: pointer; }
 
 .wpcf7-submit {
 	float: left;
@@ -170,65 +201,49 @@ label, input[type=button], input[type=submit], button { cursor: pointer; }
 /* @group Helpers
 -------------------------------------------------------------- */
 
-.hidden		  { display: none; }
-.no-text	  { display: block; overflow: hidden; text-indent: -9999px; }
+.hidden { display: none }
+.no-text {
+    display: block;
+    overflow: hidden;
+    text-indent: -9999px;
+}
 
-.first		  { margin-left:0 !important; }
-.last		  { margin-right:0 !important; }
-.top	   	  { margin-top:0 !important; }
-.bottom		  { margin-bottom:0 !important; }
+img.alignleft { margin: 1.5em 1.5em 1.5em 0 }
+img.alignright { margin: 1.5em 0 1.5em 1.5em }
+.alignleft { float: left; display:  inline; }
+.alignright { float: right; display:  inline; }
 
-.clear 		  { clear:both; }
+/* Clearfix */
 
-img.alignleft { margin: 0 1.5em 1.5em 0; }
-img.alignright{ margin: 0 0 1.5em 1.5em; }
-
-.alignleft 	  { float: left; }
-.alignright	  { float: right; }
-
-.prepend-top  { margin-top:1.5em; }
-.append-bottom{ margin-bottom:1.5em; }
+.fix:before,
+.fix:after {
+    content: "";
+    display: table;
+}
+.fix:after { clear: both }
+.fix { zoom: 1 }
 
 
 /* Columns */
 
 .col {
-	float:left;
-	display:inline;
-	width:48%;
-	margin-left:4%; /* 2 equal width columns layout - default */
+	float: left;
+	display: inline;
+	width: 48%;
+	margin-left: 4%; /* 2 equal width columns layout - default */
 	}	
 .cols-3 { margin-left: -1.5%; }
-.cols-3 .col { width:30%; margin: 0 1.5%; } /* 3 equal width columns layout */
-.cols-4 .col { width:22%; margin-left:4%; } /* 4 equal width columns layout */
-.cols-5 .col { width:16%; margin-left:5%; } /* 5 equal width columns layout */
+.cols-3 .col { width: 30%; margin: 0 1.5%; } /* 3 equal width columns layout */
+.cols-4 .col { width: 22%; margin-left: 4%; } /* 4 equal width columns layout */
+.cols-5 .col { width: 16%; margin-left: 5%; } /* 5 equal width columns layout */
 
-.cols-2-1 .col-1 { width:60%; margin-left:5%; } /* 2:1 width columns layout */
-.cols-2-1 .col-2 { width:30%; margin-left:5%; float: right; } 
+.cols-2-1 .col-1 { width: 60%; margin-left: 5%; } /* 2:1 width columns layout */
+.cols-2-1 .col-2 { width: 30%; margin-left: 5%; float: right; } 
 
-.cols-1-2 .col-1 { width:30%; margin-left:5%; } /* 1:2 width columns layout */
-.cols-1-2 .col-2 { width:60%; margin-left:5%; }
+.cols-1-2 .col-1 { width: 30%; margin-left: 5%; } /* 1:2 width columns layout */
+.cols-1-2 .col-2 { width: 60%; margin-left: 5%; }
 
-.ie7 .cols-3 .col:first-child { width:29%;  } /* 3 equal width columns layout */
-
-/* Clearing floats without extra markup
-Based on A new micro clearfix hack by Nicolas Gallagher
-[http://nicolasgallagher.com/micro-clearfix-hack/] */
-
-/* For modern browsers */
-.fix:before,
-.fix:after {
-    content:"";
-    display:table;
-}
-.fix:after {
-    clear:both;
-}
-
-/* For IE 6/7 (trigger hasLayout) */
-.fix {
-    zoom:1;
-}
+.ie7 .cols-3 .col:first-child { width: 29%;  } /* 3 equal width columns layout */
 
 /* @end */
 

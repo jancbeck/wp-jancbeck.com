@@ -57,7 +57,7 @@ body {
  }
 .header .site-description {
 	color: #8c9ca2;
-	margin-bottom: 0;
+	margin: 0;
 	line-height: 1;
 }
 .nav-main {
