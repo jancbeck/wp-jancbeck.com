@@ -4,9 +4,8 @@ Private portfolio theme hosted on github.
 
 ## TODO
 
-* defuck style.css
-* Slider thumbs
 * Add flex Slider
+* Slider thumbs
 * services styling
 * replace icon images with webfont
 * responsive layout
