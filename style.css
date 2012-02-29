@@ -1,6 +1,3 @@
-/* @override 
-	http://jancbeck.de/web/jancbeck.de/wp-content/themes/jbm/style.css */
-
 /*
 	Theme Name:  	Jan Beck 
 	Theme URI:		http://jancbeck.de
@@ -17,7 +14,7 @@
 
 h1,h2,h3,h4,h5,h6 { font-weight: bold; color: #212526; margin-top: 0; }
 
-h1 { font-size: 48px; line-height: 64px; letter-spacing: -2px;  }
+h1 { font-size: 48px; line-height: 64px; letter-spacing: -2px; }
 h2 { font-size: 36px; line-height: 36px; color: #8c9ca2; }
 h3 { font-size: 26px; line-height: 30px; }
 h4 { font-size: 22px; line-height: 30px; }
@@ -86,11 +83,11 @@ hr {
 /* @group Lists
 -------------------------------------------------------------- */
 
-ul		   { list-style: none; }
-li 		   { position: relative; }
+ul { list-style: none; }
+li { position: relative; }
 
-dl dt	   { font-weight: bold; }
-dl dd	   { margin-left: .5em; margin-bottom: .5em; }
+dl dt { font-weight: bold; }
+dl dd { margin-left: .5em; margin-bottom: .5em; }
 
 /* @end */
 
@@ -231,7 +228,7 @@ img.alignright { margin: 1.5em 0 1.5em 1.5em }
 	display: inline;
 	width: 48%;
 	margin-left: 4%; /* 2 equal width columns layout - default */
-	}	
+}	
 .cols-3 { margin-left: -1.5%; }
 .cols-3 .col { width: 30%; margin: 0 1.5%; } /* 3 equal width columns layout */
 .cols-4 .col { width: 22%; margin-left: 4%; } /* 4 equal width columns layout */
