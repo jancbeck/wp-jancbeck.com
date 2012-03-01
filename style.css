@@ -242,5 +242,7 @@ img.alignright { margin: 1.5em 0 1.5em 1.5em }
 
 .ie7 .cols-3 .col:first-child { width: 29%;  } /* 3 equal width columns layout */
 
+.cols .first { margin-left: 0; }
+
 /* @end */
 
