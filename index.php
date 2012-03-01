@@ -52,10 +52,8 @@
 			
 				
 			foreach ($projects as $project) : ?>
-			
-			<?php $thumb = wp_get_attachment_image_src(get_post_thumbnail_id($project->ID), 'thumbnail');  ?>
-			
-			<li class="project <?php echo $project->post_name; ?>" data-thumb="<?php echo $thumb[0]; ?>">
+						
+			<li class="project <?php echo $project->post_name; ?>">
 				<div class="project-media"><?php echo get_the_post_thumbnail($project->ID, 'full'); ?></div>
 				<div class="project-description">
 					<h3 class="project-title"><?php echo $project->post_title; ?></h3>
@@ -68,12 +66,6 @@
 			
 		</ul>
 	</div>
-
-</div>
-
-<div class="wrap fix catcher portfolio-catcher">
-
-	<p><?php _e('Gestalterisches und technisches Know-how aus einer Hand geht nicht? Geht doch!'); ?></p>
 
 </div>
 
