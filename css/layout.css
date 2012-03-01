@@ -217,9 +217,9 @@ h3#wordpress {
 	background-repeat: no-repeat;
 	opacity: .3;
 	background-position: center center;
-	-webkit-transition: opacity .15s ease-in;
-	-moz-transition: opacity .15s ease-in;
-	transition: opacity .15s ease-in;
+	-webkit-transition: opacity .16s ease-in;
+	-moz-transition: opacity .16s ease-in;
+	transition: opacity .16s ease-in;
 }
 .web-profile a:hover {
 	opacity: .8;
@@ -281,44 +281,81 @@ h3#wordpress {
 
 /* @group Slider */
 
-.flex-container a:active,
-.flexslider a:active {outline: none;}
+.slider a:active {outline: none;}
 .slides,
 .flex-control-nav {margin: 0; padding: 0; list-style: none;} 
 
-.flexslider {width: 100%; margin: 0; padding: 0;}
-.flexslider .slides > li {display: none;} /* Hide the slides before the JS is loaded. Avoids image jumping */
-.flexslider .slides img {max-width: 100%; display: block;}
+.slider {width: 100%; margin: 0; padding: 0; cursor: pointer;}
+.no-js .slider { cursor: auto; }
+.slider .slides > li {display: none;} /* Hide the slides before the JS is loaded. Avoids image jumping */
+.no-js .slider .slides > li {display: inline;} 
+.slider .slides img {max-width: 100%; display: block;}
 .flex-control-nav {
-	position: absolute;
-	top: 460px;
-	right: 10px;
-	text-align: center;
+	font-size: 0;
+	line-height: 0;
+	margin-left: 8px;
 }
 .flex-control-nav li {
-	display: inline-block;
-	margin: 0 10px;
-	text-indent: -9999px;
-}
-.flex-control-nav a {
-	-moz-box-shadow: inset 2px 2px 2px 0 rgba(0, 0, 0, 0.3), 0 1px 0 0 rgba(255,255,255,0.8);
-	-webkit-box-shadow: inset 2px 2px 2px 0 rgba(0, 0, 0, 0.3), 0 1px 0 0 rgba(255,255,255,0.8);
-	box-shadow: inset 2px 2px 2px 0 rgba(0, 0, 0, 0.3), 0 1px 0 0 rgba(255,255,255,0.8);
-	width: 15px;
-	height: 15px;
-	background: #ccc;
-	background: rgba(0,0,0,0.2);
-	-moz-border-radius: 10px;
-	-webkit-border-radius: 10px;
-	border-radius: 10px;
-	display: block;
+	width: 210px;
+	height: 133px;
 	overflow: hidden;
-}
-.flex-control-nav a:hover,
-.flex-control-nav a.active {
+	float: left;
 	background: white;
-	background: rgba(255,255,255,255,.8);
+	margin: 36px 25px;
+	-webkit-box-shadow: 0 0 10px rgba(0,0,0,0.1), 0 0 0 1px rgba(0,0,0,.02);
+	-moz-box-shadow: 0 0 10px rgba(0,0,0,0.1), 0 0 0 1px rgba(0,0,0,.02);
+	box-shadow: 0 0 10px rgba(0,0,0,0.1), 0 0 0 1px rgba(0,0,0,.02);
 	cursor: pointer;
+}
+.flex-control-nav li:active {
+	position: relative;
+	top: 1px;
+}
+.flex-control-nav a {
+	display: block;
+}
+.flex-control-nav img,
+.flex-control-nav .initial .active img {
+	width: 540px;
+	opacity: .4;
+	position: relative;
+	-webkit-transform: scale(1.4) rotate(15deg);
+	
+	-webkit-transition: -webkit-transform .4s ease-out, opacity 0.3s ease-out;  /* Saf3.2+, Chrome */
+	    -moz-transition: opacity .6s ease-out;  /* FF4+ */
+	     -ms-transition: opacity 6s ease-out;  /* IE10? */
+	      -o-transition: opacity .6s ease-out;  /* Opera 10.5+ */
+	         transition: transform .4s ease-out, opacity 0.3s ease-out; 
+}
+.flex-control-nav .active img {
+	opacity: 1;
+	-webkit-transform: scale(1) rotate(0);
+  -webkit-transition: -webkit-transform 6s ease, opacity 0.3s ease-out;  /* Saf3.2+, Chrome */
+     -moz-transition: opacity 6s ease;  /* FF4+ */
+      -ms-transition: opacity 6s ease;  /* IE10? */
+       -o-transition: opacity 6s ease;  /* Opera 10.5+ */
+          transition: transform 6s ease, opacity 0.3s ease-out; 
+}
+.flex-control-nav .thumb-benjamin-messingschlager-mediendesign img {
+	width: 657px;
+	left: -6px;
+	top: 0;
+}
+.flex-control-nav .thumb-malte-pietschmann-portfolio img {
+	width: 690px;
+	left: -10px;
+	top: -5px;
+}
+.flex-control-nav .thumb-illitheas-trance-progressive img {
+	top: -50px;
+	width: 695px;
+}
+.flex-control-nav .thumb-cintia-barosso-studio img {
+	width: 330px;
+}
+.flex-control-nav img:hover,
+.flex-control-nav li.active img {
+	opacity: 1;
 }
 
 /* @end */
