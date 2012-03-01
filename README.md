@@ -4,7 +4,6 @@ Private portfolio theme hosted on github.
 
 ## TODO
 
-* Add flex Slider
 * Slider thumbs
 * services styling
 * responsive layout
