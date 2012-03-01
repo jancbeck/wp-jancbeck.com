@@ -22,7 +22,6 @@
 	
 	<link rel="stylesheet" href="<?php bloginfo( 'template_url' ); ?>/css/normalize.css" />
 	<link rel="stylesheet" href="<?php bloginfo( 'template_url' ); ?>/style.css" />
-	<link rel="stylesheet" href="<?php bloginfo( 'template_url' ); ?>/css/flexslider.css" />
 	<link rel="stylesheet" href="<?php bloginfo( 'template_url' ); ?>/css/layout.css" />
 		
 	<?php wp_head(); ?>
@@ -46,24 +45,29 @@
 
 <div class="wrap section portfolio" id="portfolio">
 
-	<ul class="hero">
-	
-		<?php $projects = get_posts(array('post_type' => 'project')); 
+	<div class="slider">
+		<ul class="slides">
+		
+			<?php $projects = get_posts(array('post_type' => 'project'));
 			
-		foreach ($projects as $project) : ?>
-		
-		<li class="project <?php echo $project->post_name; ?>">
-			<div class="project-media"><?php echo get_the_post_thumbnail($project->ID, 'full'); ?></div>
-			<div class="project-description">
-				<h3><?php echo $project->post_title; ?></h3>
-				<p class="project-intro"><?php echo $project->post_excerpt; ?> <a href="<?php echo get_field('href', $project->ID); ?>"><?php _e('Seite besuchen'); ?></a>
-				</p>
-			</div>
-		</li>
 				
-		<?php endforeach; ?>
-		
-	</ul>
+			foreach ($projects as $project) : ?>
+			
+			<?php $thumb = wp_get_attachment_image_src(get_post_thumbnail_id($project->ID), 'thumbnail');  ?>
+			
+			<li class="project <?php echo $project->post_name; ?>" data-thumb="<?php echo $thumb[0]; ?>">
+				<div class="project-media"><?php echo get_the_post_thumbnail($project->ID, 'full'); ?></div>
+				<div class="project-description">
+					<h3 class="project-title"><?php echo $project->post_title; ?></h3>
+					<p class="project-intro"><?php echo $project->post_excerpt; ?> <a href="<?php echo get_field('href', $project->ID); ?>"><?php _e('Seite besuchen'); ?></a>
+					</p>
+				</div>
+			</li>
+					
+			<?php endforeach; ?>
+			
+		</ul>
+	</div>
 
 </div>
 
