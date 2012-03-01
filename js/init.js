@@ -84,15 +84,19 @@ $(document).ready(function() {
 
 $(window).load(function() {
 	
+	$('#portfolio').after('<div id="flex-control-container" class="fix"></div>');
+	
 	$('.slider').flexslider({
 		
 		animation: "slide",             // String: Select your animation type, "fade" or "slide"
 		directionNav: false,            // Boolean: Create navigation for previous/next navigation? (true/false)
-		pauseOnHover: true,             // Boolean: Pause the slideshow when hovering over slider, then resume when no longer hovering
-		manualControls: "#slider-thumb-control",             //Selector: Declare custom control navigation. Example would be ".flex-control-nav li" or "#tabs-nav li img", etc. The number of elements in your controlNav should match the number of slides/tabs.
-		start: function() {			
+		pauseOnHover: true,  			// Boolean: Pause the slideshow when hovering over slider, then resume when no longer hovering
+		controlsContainer: "#flex-control-container",             //Selector: Declare custom control navigation. Example would be ".flex-control-nav li" or "#tabs-nav li img", etc. The number of elements in your controlNav should match the number of slides/tabs.
+		start: function() {		
 			$('.flex-control-nav').find('a').html(function(i, o) {
-				return '<img src="' + $('[data-thumb]:eq(' + i + ')').attr('data-thumb') + '" alt="' + $('.project-titel:eq(' + i + ')').text() + '" />';
+				return '<img src="' + $('.project:not(.clone):eq(' + i + ') .project-media img').attr('src') + '" alt="' + $('.project-title:eq(' + i + ')').text() + '" />';
+			}).parent().attr('class', function(i, o) {
+				return 'thumb-' + $('.project:not(.clone):eq(' + i + ')').attr('class').replace('project ', '');
 			});
 		}
 	});
