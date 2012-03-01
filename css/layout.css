@@ -278,3 +278,47 @@ h3#wordpress {
 
 
 /* @end */
+
+/* @group Slider */
+
+.flex-container a:active,
+.flexslider a:active {outline: none;}
+.slides,
+.flex-control-nav {margin: 0; padding: 0; list-style: none;} 
+
+.flexslider {width: 100%; margin: 0; padding: 0;}
+.flexslider .slides > li {display: none;} /* Hide the slides before the JS is loaded. Avoids image jumping */
+.flexslider .slides img {max-width: 100%; display: block;}
+.flex-control-nav {
+	position: absolute;
+	top: 460px;
+	right: 10px;
+	text-align: center;
+}
+.flex-control-nav li {
+	display: inline-block;
+	margin: 0 10px;
+	text-indent: -9999px;
+}
+.flex-control-nav a {
+	-moz-box-shadow: inset 2px 2px 2px 0 rgba(0, 0, 0, 0.3), 0 1px 0 0 rgba(255,255,255,0.8);
+	-webkit-box-shadow: inset 2px 2px 2px 0 rgba(0, 0, 0, 0.3), 0 1px 0 0 rgba(255,255,255,0.8);
+	box-shadow: inset 2px 2px 2px 0 rgba(0, 0, 0, 0.3), 0 1px 0 0 rgba(255,255,255,0.8);
+	width: 15px;
+	height: 15px;
+	background: #ccc;
+	background: rgba(0,0,0,0.2);
+	-moz-border-radius: 10px;
+	-webkit-border-radius: 10px;
+	border-radius: 10px;
+	display: block;
+	overflow: hidden;
+}
+.flex-control-nav a:hover,
+.flex-control-nav a.active {
+	background: white;
+	background: rgba(255,255,255,255,.8);
+	cursor: pointer;
+}
+
+/* @end */
