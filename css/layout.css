@@ -172,7 +172,7 @@ h3#wordpress {
 	opacity: 1;
 }
 .list-services h4 {
-	color: #088ad2;
+	color: #38b3e1;
 	font-size: 16px;
 	margin-bottom: 0;
 }
@@ -358,14 +358,15 @@ h3#wordpress {
 	      -o-transition: opacity .6s ease-out;  /* Opera 10.5+ */
 	         transition: transform .4s ease-out, opacity 0.3s ease-out; 
 }
+.flex-control-nav a:hover img,
 .flex-control-nav .active img {
 	opacity: 1;
 	-webkit-transform: scale(1) rotate(0);
-  -webkit-transition: -webkit-transform 6s ease, opacity 0.3s ease-out;  /* Saf3.2+, Chrome */
-     -moz-transition: opacity 6s ease;  /* FF4+ */
-      -ms-transition: opacity 6s ease;  /* IE10? */
-       -o-transition: opacity 6s ease;  /* Opera 10.5+ */
-          transition: transform 6s ease, opacity 0.3s ease-out; 
+  -webkit-transition: -webkit-transform .5s ease, opacity 0.3s ease-out;  /* Saf3.2+, Chrome */
+     -moz-transition: opacity .5s ease;  /* FF4+ */
+      -ms-transition: opacity .5s ease;  /* IE10? */
+       -o-transition: opacity .5s ease;  /* Opera 10.5+ */
+          transition: transform .5s ease, opacity 0.3s ease-out; 
 }
 .flex-control-nav .thumb-benjamin-messingschlager-mediendesign img {
 	width: 657px;
