@@ -1,3 +1,6 @@
+/* @override 
+	http://jancbeck.de/web/jancbeck.de/wp-content/themes/jbm/css/layout.css */
+
 /* @group Layout
 -------------------------------------------------------------- */
 
@@ -142,8 +145,6 @@ body {
 	background-repeat: no-repeat;
 	background-position: 0 -1px;
 }
-#services li:before { content: ""; width: 10px; height: 3px; display: block; position: absolute; left: -20px; top: 10px; background: #CACDCE; }
-
 h3#webdesign {
 	background-image: url(../images/jbm_ico_design.png);
 }
@@ -152,6 +153,36 @@ h3#webdev {
 }
 h3#wordpress {
 	background-image: url(../images/jbm_ico_wp.png);
+}
+.list-services {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+}
+.list-services li {
+	clear: both;
+}
+.list-services img {
+	float: left;
+	margin: .5em 10px 1em 0;
+	clear: left;
+	opacity: .2;
+}
+.list-services a:hover img {
+	opacity: 1;
+}
+.list-services h4 {
+	color: #088ad2;
+	font-size: 16px;
+	margin-bottom: 0;
+}
+.list-services a:hover h4 {
+	color: #333;
+}
+.list-services p {
+	color: #8e9ca2;
+	margin: 0;
+	font-size: 14px;
 }
 .catcher {
 	font-size: 36px;

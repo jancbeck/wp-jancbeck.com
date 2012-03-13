@@ -75,15 +75,38 @@
 	
 	<div class="fix cols cols-3">
 		
-		<?php $services = get_posts(array('post_parent' => 18, 'orderby' => 'menu_order', 'post_type' => 'page'));
+		<?php $s_parents = get_posts(array('post_parent' => 18, 'orderby' => 'menu_order', 'post_type' => 'page'));
 
-		foreach ($services as $service) :  ?>
+		foreach ($s_parents as $s_parent) :  ?>
 	
 		<div class="col">
 	
-			<h3 id="<?php echo $service->post_name; ?>"><?php echo $service->post_title; ?></h3>
+			<h3 id="<?php echo $s_parent->post_name; ?>"><?php echo $s_parent->post_title; ?></h3>
 			
-			<p><?php echo $service->post_content; ?></p>
+			<?php $services = get_posts(array('post_parent' => $s_parent->ID, 'orderby' => 'menu_order', 'order' => 'ASC', 'post_type' => 'page', 'numberposts' => -1));
+			
+			if ($services) :
+			
+			echo '<ul class="list-services">';
+				
+				foreach ($services as $service) : ?>
+										
+					<li>
+						<!--<a href="<?php echo get_permalink($service->ID); ?>">-->
+						
+							<?php echo wp_get_attachment_image(get_field('front_image', $service->ID), 'full'); ?>
+					
+							<h4><?php echo get_the_title($service->ID); ?></h4>
+							<p><?php the_field('front_excerpt', $service->ID) ?></p>
+					
+						<!--</a>-->
+					</li>
+						
+			<?php endforeach;
+			
+			echo '</ul>';
+			
+			endif; ?>
 		
 		</div>
 		
