@@ -315,7 +315,10 @@ h3#wordpress {
 .slider a:active {outline: none;}
 .slides,
 .flex-control-nav {margin: 0; padding: 0; list-style: none;} 
-
+#flex-control-container {
+	width: 992px;
+	margin: auto;
+}
 .slider {width: 100%; margin: 0; padding: 0; cursor: pointer;}
 .no-js .slider { cursor: auto; }
 .slider .slides > li {display: none;} /* Hide the slides before the JS is loaded. Avoids image jumping */
@@ -324,7 +327,6 @@ h3#wordpress {
 .flex-control-nav {
 	font-size: 0;
 	line-height: 0;
-	margin-left: 8px;
 }
 .flex-control-nav li {
 	width: 210px;
@@ -332,7 +334,7 @@ h3#wordpress {
 	overflow: hidden;
 	float: left;
 	background: white;
-	margin: 36px 25px;
+	margin: 36px 19px;
 	-webkit-box-shadow: 0 0 10px rgba(0,0,0,0.1), 0 0 0 1px rgba(0,0,0,.02);
 	-moz-box-shadow: 0 0 10px rgba(0,0,0,0.1), 0 0 0 1px rgba(0,0,0,.02);
 	box-shadow: 0 0 10px rgba(0,0,0,0.1), 0 0 0 1px rgba(0,0,0,.02);
