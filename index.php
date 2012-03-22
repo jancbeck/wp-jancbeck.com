@@ -49,7 +49,6 @@
 		<ul class="slides">
 		
 			<?php $projects = get_posts(array('post_type' => 'project'));
-			
 				
 			foreach ($projects as $project) : ?>
 						
