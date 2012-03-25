@@ -161,6 +161,7 @@ h3#wordpress {
 }
 .list-services li {
 	clear: both;
+	margin-bottom: 5px;
 }
 .list-services img {
 	float: left;
@@ -181,8 +182,8 @@ h3#wordpress {
 }
 .list-services p {
 	color: #8e9ca2;
-	margin: 0;
 	font-size: 14px;
+	margin: 0 0 0 46px;
 }
 .catcher {
 	font-size: 36px;
