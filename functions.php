@@ -30,6 +30,7 @@ define('WP_DEBUG', true);
 	
 		wp_deregister_script('l10n');
 		wp_enqueue_script('jquery'); 
+		wp_enqueue_script('affix', 		get_template_directory_uri() . '/js/bootstrap-affix.js', array('jquery'), '1.0', true );
 		wp_enqueue_script('alert', 		get_template_directory_uri() . '/js/bootstrap-alert.js', array('jquery'), '1.0', true );
 		wp_enqueue_script('button', 	get_template_directory_uri() . '/js/bootstrap-button.js', array('jquery'), '1.0', true );
 		wp_enqueue_script('carousel', 	get_template_directory_uri() . '/js/bootstrap-carousel.js', array('jquery'), '1.0', true );
@@ -47,7 +48,7 @@ define('WP_DEBUG', true);
 	add_action('wp_enqueue_scripts', 'theme_ressources');
 	
 	// wp_enqueue_style( $handle, $src, $deps, $ver, $media );
-	wp_enqueue_style( 'style', get_template_directory_uri() . '/less/jbm.less' ); 
+	wp_enqueue_style( 'style', get_template_directory_uri() . '/less/bootstrap.less' ); 
 
 
 /***************************************************************
@@ -239,6 +240,18 @@ define('WP_DEBUG', true);
 	
 	
 /***************************************************************
+* 3.4 Force compile less on every page load
+***************************************************************/
+
+	function always_compile_less() {
+		global $WPLessPlugin;
+		$WPLessPlugin->processStylesheets(true);
+	}
+	add_action( 'wp', 'always_compile_less' );
+	
+
+/***************************************************************
 * X.X Code Template
 ***************************************************************/
+
 
