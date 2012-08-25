@@ -2,14 +2,41 @@ body {
 	position: relative;
 	padding-top: 100px;
 }
+p {
+	margin: 0 0 @baseLineHeight / 1.5;
+}
+h1, h2, h3, h4, h5, h6 {
+	margin: (@baseLineHeight / 1.5) 0;
+}
+h1 { font-size: 42px; line-height: 48px; }
+h2 { font-size: 36px; line-height: 40px; }
+
 .navbar .brand {
 	font-weight: bold;
+}
+.navbar-search .search-query {	
+	padding: 0 14px;
+	line-height: 1.4;
 }
 .post {
 	margin-bottom: 100px;
 } 
 .post p:first-child {
 	font-weight: bold;
+	margin-bottom: @baseLineHeight;
+}
+.post img,
+#stickies {
+	.box-shadow(~'0 0 1px 0 rgba(0, 0, 0, 0.5), 5px 10px 30px rgba(0, 0, 0, 0.3)');
+	.border-radius(4px);
+	margin-bottom: @baseLineHeight;
+}
+.post a:hover img {
+	.box-shadow(~'0 0 1px 0 rgba(0, 0, 0, 0.5), 5px 10px 30px rgba(0, 0, 0, 0.3)');
+}
+
+#stickies {
+	margin-bottom: 100px;
 }
 
   // Fixed grid
