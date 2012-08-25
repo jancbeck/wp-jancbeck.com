@@ -21,7 +21,7 @@ h2 { font-size: 36px; line-height: 40px; }
 .post {
 	margin-bottom: 100px;
 } 
-.post p:first-child {
+.post-content p:first-child {
 	font-weight: bold;
 	margin-bottom: @baseLineHeight;
 }
@@ -34,11 +34,39 @@ h2 { font-size: 36px; line-height: 40px; }
 .post a:hover img {
 	.box-shadow(~'0 0 1px 0 rgba(0, 0, 0, 0.5), 5px 10px 30px rgba(0, 0, 0, 0.3)');
 }
-
 .post-category {
 	text-transform: uppercase;
 	font-size: 16px;
 	color: #aaa;
+}
+.more-link {
+  font-family: @headingsFontFamily;
+  font-size: 26px;
+}
+.navbar-search {
+
+	&:after {
+		content: "\f002";
+		font-family: FontAwesome;
+		font-weight: normal;
+		font-style: normal;
+		display: inline-block;
+		text-decoration: inherit;
+	    position: absolute;
+	    right: 10px;
+	    top: 2px;
+	    color: #aaa;
+    }
+    .search-query {
+	    padding-right: 30px;
+    }
+}
+.footer {
+	text-align: center;
+	
+	a {
+		margin: 0 10px;
+	}
 }
 
 // Fixed grid
