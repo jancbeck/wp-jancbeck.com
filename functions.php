@@ -18,9 +18,9 @@
 *		3.4 Force compile less
 * 		3.5 Remove More Jump
 * 		3.6 Bootstrap_Walker_Nav_Menu
-*		3.7 Ignore sticky posts
-*		3.8 Attachment Carousel
-*		3.9 Get first Category of post
+*		3.7 Attachment Carousel
+*		3.8 Get first Category of post
+*		3.9 Display Bootstrap Pagination
 * 
 ***************************************************************/
 
@@ -186,21 +186,21 @@ define('WP_DEBUG', true);
 
 	function remheadlink() {
 		// Remove links to the extra feeds (e.g. category feeds)
-		remove_action( 'wp_head', 'feed_links_extra', 3 );
+		// remove_action( 'wp_head', 'feed_links_extra', 3 );
 		// Remove links to the general feeds (e.g. posts and comments)
-		remove_action( 'wp_head', 'feed_links', 2 );
+		// remove_action( 'wp_head', 'feed_links', 2 );
 		// Remove link to the RSD service endpoint, EditURI link
-		remove_action( 'wp_head', 'rsd_link' );
+		// remove_action( 'wp_head', 'rsd_link' );
 		// Remove link to the Windows Live Writer manifest file
-		remove_action( 'wp_head', 'wlwmanifest_link' );
+		// remove_action( 'wp_head', 'wlwmanifest_link' );
 		// Remove index link
-		remove_action( 'wp_head', 'index_rel_link' );
+		// remove_action( 'wp_head', 'index_rel_link' );
 		// Remove prev link
-		remove_action( 'wp_head', 'parent_post_rel_link', 10, 0 );
+		// remove_action( 'wp_head', 'parent_post_rel_link', 10, 0 );
 		// Remove start link
-		remove_action( 'wp_head', 'start_post_rel_link', 10, 0 );
+		// remove_action( 'wp_head', 'start_post_rel_link', 10, 0 );
 		// Display relational links for adjacent posts
-		remove_action( 'wp_head', 'adjacent_posts_rel_link', 10, 0 );
+		// remove_action( 'wp_head', 'adjacent_posts_rel_link', 10, 0 );
 		// Remove XHTML generator showing WP version
 		remove_action( 'wp_head', 'wp_generator' );
 	}
@@ -385,23 +385,9 @@ class Bootstrap_Walker_Nav_Menu extends Walker_Nav_Menu {
 	
 }
 
-/***************************************************************
-* 3.7 Sticky posts for portfolio
-* This is needed if we want to abuse the 
-* sticky posts function for the portfolio slider
-***************************************************************/
-
-	function ignore_stickys() {
-		global $wp_query;
-	
-		if ( is_home() )	
-			query_posts( 'caller_get_posts=1' );
-	}
-	add_action( 'wp', 'ignore_stickys' );
-
 
 /***************************************************************
-* 3.8 Attachment Carousel 
+* 3.7 Attachment Carousel 
 ***************************************************************/
 
 	function get_attachment_carousel() {
@@ -444,7 +430,7 @@ class Bootstrap_Walker_Nav_Menu extends Walker_Nav_Menu {
 	add_shortcode('attachment_carousel', 'get_attachment_carousel');
 
 /***************************************************************
-* 3.9 Get first Category of post
+* 3.8 Get first Category of post
 ***************************************************************/
 
 	function get_first_category( ) {
@@ -453,5 +439,61 @@ class Bootstrap_Walker_Nav_Menu extends Walker_Nav_Menu {
 	}
 
 /***************************************************************
+* 3.9 Display Bootstrap Pagination
+***************************************************************/
+
+
+	function bootstrap_pagination() {	
+		global $wp_query;
+		$big = 999999999; // need an unlikely integer
+		
+		if ( !is_paged() )
+			return;
+		
+		$output = '<div class="pagination pagination-centered">';
+		$output .= paginate_links( array(
+			'base' => str_replace( $big, '%#%', get_pagenum_link( $big ) ),
+			'format' => '?paged=%#%',
+			'show_all' => false,
+			'end_size' => 1,
+			'mid_size' => 2,
+			'prev_next' => true,
+			'prev_text' => __('&laquo;'),
+			'next_text' => __('&raquo;'),
+			'current' => max( 1, get_query_var('paged') ),
+			'total' => $wp_query->max_num_pages,
+			'type' => 'list'
+		) );
+		$output .= '</div>';
+		return $output;
+	}
+	
+/***************************************************************
 * X.X Code Template
 ***************************************************************/
+
+add_action('wp_ajax_query_title', 'ajax_query_title');
+
+function ajax_query_title() {
+	global $wpdb;
+
+	// query term to lookup
+	$query = $_GET['query_title'];
+	
+	// get results from database
+	$results = $wpdb->get_results( "SELECT post_title FROM $wpdb->posts WHERE post_title LIKE '%$query%' AND post_type = 'post' AND post_status = 'publish'", ARRAY_N );
+	
+	$json = array();
+	if ( $results ) {
+		foreach( $results as $result ) {
+			$json[] = $result[0];
+		}
+	}
+	
+	// print db results in JSON format
+    echo json_encode( $json );
+    
+    // this is required to return a proper result
+	die(); 
+}
+
