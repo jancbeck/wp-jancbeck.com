@@ -18,6 +18,9 @@
 *		3.4 Force compile less
 * 		3.5 Remove More Jump
 * 		3.6 Bootstrap_Walker_Nav_Menu
+*		3.7 Ignore sticky posts
+*		3.8 Attachment Carousel
+*		3.9 Get first Category of post
 * 
 ***************************************************************/
 
@@ -276,6 +279,7 @@ define('WP_DEBUG', true);
 
 /***************************************************************
 * 3.6 Bootstrap_Walker_Nav_Menu
+* https://gist.github.com/1597994
 ***************************************************************/
 
 class Bootstrap_Walker_Nav_Menu extends Walker_Nav_Menu {
@@ -387,14 +391,66 @@ class Bootstrap_Walker_Nav_Menu extends Walker_Nav_Menu {
 * sticky posts function for the portfolio slider
 ***************************************************************/
 
-function ignore_stickys() {
-	global $wp_query;
+	function ignore_stickys() {
+		global $wp_query;
+	
+		if ( is_home() )	
+			query_posts( 'caller_get_posts=1' );
+	}
+	add_action( 'wp', 'ignore_stickys' );
 
-	if ( is_home() )	
-		query_posts( 'caller_get_posts=1' );
-}
-add_action( 'wp', 'ignore_stickys' );
 
+/***************************************************************
+* 3.8 Attachment Carousel 
+***************************************************************/
+
+	function get_attachment_carousel() {
+		
+		global $post;
+		
+		// gets attachments for the current post
+		$args = array( 
+			'post_type' => 'attachment', 
+			'numberposts' => -1, 
+			'post_status' => null, 
+			'post_parent' => $post->ID 
+		); 
+		$attachments = get_posts( $args ); 
+		$first = 0;
+		$output = '';
+			
+		if ( $attachments ) {
+			
+			$output .= '
+			<div id="stickies" class="carousel slide">
+					<div class="carousel-inner">';
+			
+			foreach( $attachments as $attachment ) :
+				
+				$output .= '<div class="item'. ( $first++ == 0 ? ' active' : '') .'">'. wp_get_attachment_image( $attachment->ID, 'full' ) .'</div>';
+				
+			endforeach;
+			
+			$output .= '
+					</div>
+					<!-- Carousel nav -->
+				<a class="carousel-control left" href="#stickies" data-slide="prev">&lsaquo;</a>
+				<a class="carousel-control right" href="#stickies" data-slide="next">&rsaquo;</a>
+			</div>';
+			
+		}
+		return $output;
+	}
+	add_shortcode('attachment_carousel', 'get_attachment_carousel');
+
+/***************************************************************
+* 3.9 Get first Category of post
+***************************************************************/
+
+	function get_first_category( ) {
+		$category = get_the_category(); 
+		return $category[0]->cat_name;
+	}
 
 /***************************************************************
 * X.X Code Template
