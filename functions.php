@@ -382,5 +382,20 @@ class Bootstrap_Walker_Nav_Menu extends Walker_Nav_Menu {
 }
 
 /***************************************************************
+* 3.7 Sticky posts for portfolio
+* This is needed if we want to abuse the 
+* sticky posts function for the portfolio slider
+***************************************************************/
+
+function ignore_stickys() {
+	global $wp_query;
+
+	if ( is_home() )	
+		query_posts( 'caller_get_posts=1' );
+}
+add_action( 'wp', 'ignore_stickys' );
+
+
+/***************************************************************
 * X.X Code Template
 ***************************************************************/
