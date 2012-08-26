@@ -88,6 +88,37 @@ define('WP_DEBUG', true);
 	    return get_bloginfo($key);
 	}
 	add_shortcode('bloginfo', 'bloginfo_shortcode');
+	
+/***************************************************************
+* 1.5 AJAX Query Title
+* Returns post titles based ajax query input
+***************************************************************/
+
+	add_action('wp_ajax_query_title', 'ajax_query_title');
+	
+	function ajax_query_title() {
+		global $wpdb;
+	
+		// query term to lookup
+		$query = $_GET['query_title'];
+		
+		// get results from database
+		$results = $wpdb->get_results( "SELECT post_title FROM $wpdb->posts WHERE post_title LIKE '%$query%' AND post_type = 'post' AND post_status = 'publish'", ARRAY_N );
+		
+		// flatten result to single array with strings
+		$json = array();
+		if ( $results ) {
+			foreach( $results as $result ) {
+				$json[] = $result[0];
+			}
+		}
+		
+		// print db results in JSON format
+	    echo json_encode( $json );
+	    
+	    // this is required to return a proper result
+	    die(); 
+	}
 
 /***************************************************************
 *  2.1 Remove default screen metaboxes
@@ -442,7 +473,6 @@ class Bootstrap_Walker_Nav_Menu extends Walker_Nav_Menu {
 * 3.9 Display Bootstrap Pagination
 ***************************************************************/
 
-
 	function bootstrap_pagination() {	
 		global $wp_query;
 		$big = 999999999; // need an unlikely integer
@@ -468,32 +498,7 @@ class Bootstrap_Walker_Nav_Menu extends Walker_Nav_Menu {
 		return $output;
 	}
 	
+
 /***************************************************************
 * X.X Code Template
 ***************************************************************/
-
-add_action('wp_ajax_query_title', 'ajax_query_title');
-
-function ajax_query_title() {
-	global $wpdb;
-
-	// query term to lookup
-	$query = $_GET['query_title'];
-	
-	// get results from database
-	$results = $wpdb->get_results( "SELECT post_title FROM $wpdb->posts WHERE post_title LIKE '%$query%' AND post_type = 'post' AND post_status = 'publish'", ARRAY_N );
-	
-	$json = array();
-	if ( $results ) {
-		foreach( $results as $result ) {
-			$json[] = $result[0];
-		}
-	}
-	
-	// print db results in JSON format
-    echo json_encode( $json );
-    
-    // this is required to return a proper result
-	die(); 
-}
-
