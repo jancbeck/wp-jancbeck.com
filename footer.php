@@ -6,7 +6,7 @@
 	<a href="http://twitter.com/jancbeck">Twitter</a>   
 	<a href="https://github.com/jancbeck/">GitHub</a>
 	<a href="<?php bloginfo('rss2_url'); ?>">Feed</a>
-	<a href="mailto:mail@jancbeck.de">Email</a>
+	<br><small>Powered by WordPress</small>
 </p>
 </body>
 </html>
