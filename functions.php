@@ -4,7 +4,7 @@
 * INDEX
 * 	1.0 SETUP (concerns ADMIN + THEME)
 * 		1.1 Enqueue Scripts
-* 		1.2 Add Theme Support
+* 		1.2 General theme options
 * 		1.3 Register Menus
 * 	2.0 ADMIN
 * 		2.1 Remove default screen metaboxes
@@ -21,6 +21,7 @@
 *		3.7 Attachment Carousel
 *		3.8 Get first Category of post
 *		3.9 Display Bootstrap Pagination
+*		3.10 Has more
 * 
 ***************************************************************/
 
@@ -61,19 +62,19 @@ define('WP_DEBUG', true);
 
 
 /***************************************************************
-* 1.2 Add Theme Support
+* 1.2 General theme options
 ***************************************************************/
 	
 	add_theme_support( 'post-thumbnails' );
-	add_editor_style('css/editor.css');	
+	add_editor_style( 'css/editor.css' );	
+    load_theme_textdomain( 'jbm', get_template_directory() .'/languages' );
 	
 /***************************************************************
 * 1.3 Register Menus
 ***************************************************************/ 
 
 	register_nav_menus(array( 
-		'main-nav' => 'Hauptnavigation', 
-		'sub-nav' => 'Unternavigation' 
+		'main-nav' => 'Hauptnavigation'
 	));
 
 
@@ -498,7 +499,19 @@ class Bootstrap_Walker_Nav_Menu extends Walker_Nav_Menu {
 		return $output;
 	}
 	
+	
+	
+/***************************************************************
+* 3.10 Has more
+* http://wordpress.org/support/topic/conditional-tag-to-check-for-lt-more-gt
+***************************************************************/
 
+	function has_more( ) {
+		global $post;
+		return ( strstr( $post->post_content,'<!--more-->' ) ? true : false );
+	}
+
+	
 /***************************************************************
 * X.X Code Template
 ***************************************************************/
