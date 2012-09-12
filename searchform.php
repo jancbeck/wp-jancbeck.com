@@ -1,5 +1,5 @@
 <form class="navbar-search pull-right" method="get" action="<?php echo home_url(); ?>">
-	<input type="text" id="s" name="s" autocomplete="off" class="search-query span3" placeholder="Suche">
+	<input type="text" id="s" name="s" autocomplete="off" class="search-query span3" placeholder="<?php _e( 'Search', 'jbm' ); ?>">
 </form>
 
 <script type="text/javascript" >
