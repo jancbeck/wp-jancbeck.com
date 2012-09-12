@@ -10,9 +10,16 @@ h1, h2, h3, h4, h5, h6 {
 }
 h1 { font-size: 42px; line-height: 48px; }
 h2 { font-size: 36px; line-height: 40px; }
-
+.navbar-expanded-top {
+	margin-bottom: 60px;
+	
+	.navbar-inner {
+		padding: 30px 0 20px;
+	}
+}
 .navbar .brand {
 	font-weight: bold;
+	font-size: 28px;
 }
 .navbar-search .search-query {	
 	padding: 0 14px;
@@ -25,27 +32,37 @@ h2 { font-size: 36px; line-height: 40px; }
 	font-weight: bold;
 	margin-bottom: @baseLineHeight;
 }
-.post img,
-#stickies {
+[class^="wp-image-"],
+[class*="wp-image-"],
+.wp-post-image {
 	.box-shadow(~'0 0 1px 0 rgba(0, 0, 0, 0.5), 5px 10px 30px rgba(0, 0, 0, 0.3)');
 	.border-radius(4px);
 	margin-bottom: @baseLineHeight;
+	.transition(all .5s ease);
+	position: relative;
+	top: 0;
 }
-.post a:hover img {
-	.box-shadow(~'0 0 1px 0 rgba(0, 0, 0, 0.5), 5px 10px 30px rgba(0, 0, 0, 0.3)');
+a:hover [class^="wp-image-"],
+a:hover [class*="wp-image-"],
+a:hover .wp-post-image {
+	.box-shadow(~'0 0 1px 0 rgba(0, 0, 0, 0.5), 5px 10px 50px rgba(0, 0, 0, 0.2)');
+	top: -10px;
+	opacity: .85;
 }
-.post-category {
+.shadowless,
+a:hover .shadowless {
+	.box-shadow(none);
+}
+.post-date {
 	text-transform: uppercase;
 	font-size: 16px;
 	color: #aaa;
 }
-.more-link {
-  font-family: @headingsFontFamily;
-  font-size: 26px;
+.more-link a:after {
+	content: " »";
 }
-.post-info {
-	.well;
-	margin-bottom: @baseLineHeight * 2;
+#disqus_thread {
+	margin-top: 70px;
 }
 .navbar-search {
 
