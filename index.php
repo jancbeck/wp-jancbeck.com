@@ -3,23 +3,30 @@
 <div class="container">
 
 <?php if ( have_posts() ) : while (have_posts()) : the_post(); ?>
+
 		<div class="post">
-			<p class="post-category"><?php the_date() ?></p>
+		
+			<p class="post-date"><?php the_date() ?></p>
 			<h2><a href="<?php echo get_permalink(); ?>"><?php the_title();?></a></h2>
 	
 			<div class="post-content">
-				<?php the_content( 'Weiterlesen »' ); ?>
+			
+				<?php the_content( '' ); ?>
+				
+				<?php if ( has_more() ) {
+				
+						if ( has_post_thumbnail() ) {
+							echo '<p><a href="'. get_permalink() .'">'. get_the_post_thumbnail( ). '</a></p>';
+						}
+						echo '<p class="more-link"><a href="'. get_permalink() .'">'. __( 'Continue Reading' ) .'</a>';
+					
+					 } else {
+					 
+						if ( has_post_thumbnail() ) {
+							echo '<p>'. get_the_post_thumbnail( ). '</p>';
+						}
+				 } ?>
 			</div>
-			
-			<?php if ( is_single() ) { ?>
-				
-				<p class="post-info">
-					Wenn du eine Kurz-URL benötigst, nimm diese: <a href="#">http://jancb.de/<?php the_ID(); ?></a>
-				</p>
-				
-			<?php } ?>
-			
-			<?php comments_template(); ?> 
 
 		</div>
 
