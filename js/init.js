@@ -2,7 +2,7 @@
 var project = {};
 
 
-
+$('.carousel').carousel();
 
 
 
