@@ -7,25 +7,12 @@
 		<div class="post">
 		
 			<p class="post-date"><?php the_date() ?></p>
-			<h2><a href="<?php echo get_permalink(); ?>"><?php the_title();?></a></h2>
+			<h2 class="post-title"><a href="<?php echo get_permalink(); ?>"><?php the_title();?></a></h2>
 	
 			<div class="post-content">
 			
 				<?php the_content( '' ); ?>
 				
-				<?php if ( has_more() ) {
-				
-						if ( has_post_thumbnail() ) {
-							echo '<p><a href="'. get_permalink() .'">'. get_the_post_thumbnail( ). '</a></p>';
-						}
-						echo '<p class="more-link"><a href="'. get_permalink() .'">'. __( 'Continue Reading' ) .'</a>';
-					
-					 } else {
-					 
-						if ( has_post_thumbnail() ) {
-							echo '<p>'. get_the_post_thumbnail( ). '</p>';
-						}
-				 } ?>
 			</div>
 
 		</div>
@@ -35,6 +22,7 @@
 	<?php echo bootstrap_pagination(); ?>
 	
 	<?php else:	?>
+	
 		<div class="alert fade in">
             <h3 class="alert-heading">Oh nein! Nichts gefunden!</h3>
             <p>Das ist mir jetzt ein bisschen peinlich, aber das wonach du gesucht hast befindet sich offensichtlich nicht hier.</p>
