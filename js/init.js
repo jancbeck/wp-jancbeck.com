@@ -2,9 +2,16 @@
 var project = {};
 
 
-$('.carousel').carousel();
+jQuery(function($) {
+	
+	$('.carousel').carousel();
 
+	$('.blog .post-content, .archive .post-content').find('img').wrap(function(){
+		var permalink = $(this).closest('.post-content').prev('.post-title').find('a').attr('href');
+		return '<a href="' + permalink + '"></a>';
+	});
 
+})
 
 
 // usage: log('inside coolFunc', this, arguments);
