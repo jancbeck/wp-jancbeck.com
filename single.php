@@ -3,9 +3,11 @@
 <div class="container">
 
 <?php if ( have_posts() ) : while (have_posts()) : the_post(); ?>
+
 		<div class="post">
+		
 			<p class="post-date"><?php the_date() ?></p>
-			<h2><a href="<?php echo get_permalink(); ?>"><?php the_title();?></a></h2>
+			<h1 class="post-title"><?php the_title();?></h1>
 	
 			<div class="post-content">
 			
