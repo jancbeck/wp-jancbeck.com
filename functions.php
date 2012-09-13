@@ -58,7 +58,7 @@ define('WP_DEBUG', true);
 	
 	
 	if ( !is_admin() )
-		wp_enqueue_style( 'style', get_template_directory_uri() . '/less/bootstrap.less' ); 
+		wp_enqueue_style( 'style', get_template_directory_uri() . '/less/jbm.less' ); 
 
 
 /***************************************************************
@@ -477,8 +477,8 @@ class Bootstrap_Walker_Nav_Menu extends Walker_Nav_Menu {
 	function bootstrap_pagination() {	
 		global $wp_query;
 		$big = 999999999; // need an unlikely integer
-		
-		if ( !is_paged() )
+
+		if ( $wp_query->max_num_pages < 2 )
 			return;
 		
 		$output = '<div class="pagination pagination-centered">';
@@ -510,7 +510,34 @@ class Bootstrap_Walker_Nav_Menu extends Walker_Nav_Menu {
 		global $post;
 		return ( strstr( $post->post_content,'<!--more-->' ) ? true : false );
 	}
-
+	
+/***************************************************************
+* 3.11 Add custom image classes
+***************************************************************/
+	
+	function add_custom_image_classes( $class, $id, $align, $size ) {
+		$img = wp_get_attachment_image_src( $id, 'full' );
+		$shadowless = get_field( 'shadowless', $id );
+		$add = '';
+		
+		if ( $img[1] >= 992 )
+			$add .= ' gte-992';
+			
+		if ( $shadowless )
+			$add .= ' shadowless';
+			
+		return $class . $add;	
+	}
+	add_filter('get_image_tag_class', 'add_custom_image_classes', 0, 4);
+	
+/***************************************************************
+* 3.12 Body Background
+***************************************************************/
+	
+	function body_bg(){
+		$img = get_field('bg');
+		echo 'style="background-image: url('. $img['url'] .')"';	
+	}
 	
 /***************************************************************
 * X.X Code Template
