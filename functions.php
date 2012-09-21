@@ -535,10 +535,21 @@ class Bootstrap_Walker_Nav_Menu extends Walker_Nav_Menu {
 ***************************************************************/
 	
 	function body_bg(){
+		if ( !is_single() )
+			return;
+			
 		$img = get_field('bg');
 		echo 'style="background-image: url('. $img['url'] .')"';	
 	}
 	
+/***************************************************************
+* 3.13 Language function
+***************************************************************/
+
+	function is_lang( $lang ) {
+		return (ICL_LANGUAGE_CODE == $lang) ? true : false;
+	}
+
 /***************************************************************
 * X.X Code Template
 ***************************************************************/
