@@ -8,6 +8,9 @@
  * Designed and built with all the love in the world @twitter by @mdo and @fat.
  */
 
+html {
+	background: white;
+}
 body {
 	position: relative;
 	padding-top: 130px;
@@ -162,9 +165,14 @@ a:hover .shadowless {
 	margin-left: -134px;
 }
 @media screen and ( max-width: 992px) {
-	.navbar-expanded-top .brand {
-		clear: none;
-		padding-left: 70px;
+	.navbar-expanded-top {
+		
+		margin-bottom: 40px;
+		
+		.brand {
+			clear: none;
+			padding-left: 70px;
+		}
 	}
 	.gte-992 {
 		max-width: 100%;
@@ -174,6 +182,7 @@ a:hover .shadowless {
 .post-title {
 	text-align: center;
 	color: #72868F;
+	line-height: 1.2;
 }
 .post-date {
 	text-transform: uppercase;
@@ -272,11 +281,6 @@ a:hover .shadowless {
 		margin-left: auto;
 	}
 }
-.has-bg {
-	background-attachment: fixed;
-	background-repeat: no-repeat;
-	background-size: cover;
-}
 .page-section {
 	margin-bottom: 50px;
 }
@@ -289,4 +293,48 @@ a:hover .shadowless {
 	h4 {
 		margin: 0;
 	}
+}
+
+
+/* 
+ *	PORTFOLIO
+ */
+ 
+@media screen and ( max-width: 992px) {
+
+	.has-bg {
+		background: white !important;
+	}
+}
+@media screen and ( min-width: 992px) {
+
+	.has-bg {
+		background-attachment: fixed;
+		background-repeat: no-repeat;
+		background-size: cover;
+		
+		.post-date {
+			color: #555;
+		}
+		.post {
+			background: white;
+			background: rgba(255,255,255,0.7);
+			padding: 15px 15px 5px;
+			.border-radius(5px);
+		}
+		.post-content p:last-child img {
+			margin-bottom: -25px;
+		}
+		.post-title {
+			color: #333;
+		}
+	}
+}
+
+@media screen and ( min-width: 992px) {
+	
+	.post-title {
+		font-size: 32px;
+	}
+	
 }
