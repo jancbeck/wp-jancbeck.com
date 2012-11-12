@@ -1,0 +1,23 @@
+header[role=banner],
+footer[role=contentinfo] p {
+	background: @highlight;
+	margin: 0;
+	max-height: 5em;
+	
+	h1 {
+		margin: 0;
+		
+		&:before {
+			content: "jB";
+			color: white;
+			margin: 0;
+		}
+		a {
+			text-indent: -9999px;
+			display: block;
+		}
+	}
+	a {
+		color: white;
+	}
+}

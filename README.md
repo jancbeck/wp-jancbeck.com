@@ -1,3 +1,3 @@
-# [jancbeck.de WordPress theme](http://www.jancbeck.de/)
+# [jancbeck.com WordPress theme](http://www.jancbeck.com/)
 
-Private portfolio theme hosted on github.
+Private blog theme hosted on github.

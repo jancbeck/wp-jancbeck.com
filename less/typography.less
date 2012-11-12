@@ -1,0 +1,256 @@
+/* =============================================================================
+   Typography
+   ========================================================================== */
+/*
+ * Addresses styling not present in IE7/8/9, S5, Chrome
+ */
+
+abbr[title] {
+    border-bottom: 1px dotted;
+}
+
+/*
+ * Addresses style set to 'bolder' in FF3+, S4/5, Chrome
+*/
+
+b, 
+strong { 
+    font-weight: bold; 
+}
+
+/*
+ * Addresses styling not present in S5, Chrome
+ */
+
+dfn {
+    font-style: italic;
+}
+
+/*
+ * Addresses styling not present in IE6/7/8/9
+ */
+
+mark {
+    background: #ff0;
+    color: #000;
+}
+
+/*
+ * Corrects font family set oddly in IE6, S4/5, Chrome
+ * en.wikipedia.org/wiki/User:Davidgothberg/Test59
+ */
+
+pre,
+code,
+kbd,
+samp {
+    font-family: monospace, serif;
+    _font-family: 'courier new', monospace;
+    font-size: 1em;
+}
+
+/*
+ * Improves readability of pre-formatted text in all browsers
+ */
+
+pre {
+    white-space: pre;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+}
+
+/*
+ * 1. Addresses CSS quotes not supported in IE6/7
+ * 2. Addresses quote property not supported in S4
+ */
+
+/* 1 */
+
+q {
+    quotes: none;
+}
+
+/* 2 */
+
+q:before,
+q:after {
+    content: '';
+    content: none;
+}
+
+small {
+    font-size: 75%;
+}
+
+/*
+ * Prevents sub and sup affecting line-height in all browsers
+ * gist.github.com/413930
+ */
+
+sub,
+sup {
+    font-size: 75%;
+    line-height: 0;
+    position: relative;
+    vertical-align: baseline;
+}
+
+sup {
+    top: -0.5em;
+}
+
+sub {
+    bottom: -0.25em;
+}
+
+/* @group Headings
+-------------------------------------------------------------- */
+
+h1, h2, h3, h4, h5, h6,
+.heading {
+	font-family: @sansFontFamily;
+	text-align: center;
+}
+h1 {
+	font-size: 3em;
+}
+h4 {
+	text-align: left;
+}
+
+/* @end */
+
+/* @group Hyperlinks
+-------------------------------------------------------------- */
+
+/*
+ * Addresses outline displayed oddly in Chrome
+ */
+
+a:focus {
+    outline: thin dotted;
+}
+
+/*
+ * Improves readability when focused and also mouse hovered in all browsers
+ * people.opera.com/patrickl/experiments/keyboard/test
+ */
+
+a:hover,
+a:active {
+    outline: 0;
+}
+
+a { color: @linkColor; text-decoration: none; }
+a:hover { color: @textColor; }
+
+h1 a,
+h2 a,
+h3 a,
+h4 a,
+h5 a,
+h6 a { color: @textColor; }
+
+h1 a:hover,
+h2 a:hover,
+h3 a:hover,
+h4 a:hover,
+h5 a:hover,
+h6 a:hover { color: @linkColor; }
+
+/* @end */
+
+
+/* @group Document
+-------------------------------------------------------------- */
+
+/*
+ * 1. Corrects text resizing oddly in IE6/7 when body font-size is set using em units
+ *    http://clagnut.com/blog/348/#c790
+ * 2. Keeps page centred in all browsers regardless of content height
+ * 3. Prevents iOS text size adjust after orientation change, without disabling user zoom
+ *    www.456bereastreet.com/archive/201012/controlling_text_size_in_safari_for_ios_without_disabling_user_zoom/
+ */
+
+html {
+    font-size: 100%; /* 1 */
+    overflow-y: scroll; /* 2 */
+    overflow: -moz-scrollbars-vertical; /* 2b */
+    -webkit-text-size-adjust: 100%; /* 3 */
+    -ms-text-size-adjust: 100%; /* 3 */
+}
+body {
+	margin: auto;
+	color: @textColor;
+	line-height: @baseLineHeight;
+	font-family: @serifFontFamily;
+}
+@media screen and (max-width: 50em) {
+	body {
+		font-size: .9em;
+	}
+}
+@media screen and (max-width: 30em) {
+	body {
+		font-size: .8em;
+	}
+}
+nav[role=navigation] ul {
+	margin: auto;
+	list-style: none;
+}
+main[role=main] {
+	max-width: 60em;
+	margin: auto;
+	display: block;
+}
+article[role=article] {
+	> p,
+	figcaption,
+	> ul, > ol, > dl,
+	h1, h2, h3, h4, h5, h6,
+	> .heading {
+		max-width: 35em;
+		margin-left: auto;
+		margin-right: auto;
+		padding-left: 2em;
+		padding-right: 2em;
+	}
+	> blockquote,
+	> table,
+	> form {
+		padding-left: 2em;
+		padding-right: 2em;
+	}
+}
+blockquote,
+img {
+	max-width: 100%;
+	.center();
+}
+table,
+pre {
+	width: 95%;
+	margin: auto;
+	margin: .5em auto;
+}
+.post-date {
+	text-align: center;
+	font-family: @sansFontFamily;
+	text-transform: uppercase;
+	color: #aaa;
+}
+blockquote {
+	max-width: 35em;
+	padding-right: 2em;
+	border-left: .5em solid #eee;
+	padding-left: 1.5em;
+	margin-left: auto;
+	font-size: 1.2em;
+	font-style: italic;
+	
+	blockquote {
+		.font-size(19, 19);
+		/* We have to go deeper! */
+	}
+}

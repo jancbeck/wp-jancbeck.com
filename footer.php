@@ -1,12 +1,12 @@
 <?php wp_footer(); ?>
 
-<div class="footer">
-	<p>
-		<a href="http://twitter.com/jancbeck">Twitter</a>   
-		<a href="https://github.com/jancbeck/">GitHub</a>
-		<a href="<?php bloginfo('rss2_url'); ?>">Feed</a>
-	</p>
-	<p><small><a href="#">CC-BY-SA 3.0</a><?php if ( is_lang( 'de' ) ) { ?> | <a href="#">Impressum</a> <?php }?></small></p>
+<footer role="contentinfo">
+	<?php wp_nav_menu( array(
+		'theme_location' => 'footer-links',
+		'container' => '',
+		'menu_class' => 'navigation'	
+	)); ?>
+	<p><small><a href="http://creativecommons.org/licenses/by-sa/3.0/de/">CC-BY-SA 3.0</a> | <a href="<?php echo get_permalink(get_page_by_title('Impressum')) ?>">Impressum</a></small></p>
 </div>
 
 

@@ -37,19 +37,6 @@ define('WP_DEBUG', true);
 	
 		wp_deregister_script('l10n');
 		wp_enqueue_script('jquery'); 
-		wp_enqueue_script('affix', 		get_template_directory_uri() . '/js/bootstrap-affix.js', array('jquery'), '1.0', true );
-		wp_enqueue_script('alert', 		get_template_directory_uri() . '/js/bootstrap-alert.js', array('jquery'), '1.0', true );
-		wp_enqueue_script('button', 	get_template_directory_uri() . '/js/bootstrap-button.js', array('jquery'), '1.0', true );
-		wp_enqueue_script('carousel', 	get_template_directory_uri() . '/js/bootstrap-carousel.js', array('jquery'), '1.0', true );
-		wp_enqueue_script('collapse', 	get_template_directory_uri() . '/js/bootstrap-collapse.js', array('jquery'), '1.0', true );
-		wp_enqueue_script('dropdown', 	get_template_directory_uri() . '/js/bootstrap-dropdown.js', array('jquery'), '1.0', true );
-		wp_enqueue_script('modal', 		get_template_directory_uri() . '/js/bootstrap-modal.js', array('jquery'), '1.0', true );
-		wp_enqueue_script('tooltip', 	get_template_directory_uri() . '/js/bootstrap-tooltip.js', array('jquery'), '1.0', true );
-		wp_enqueue_script('popover', 	get_template_directory_uri() . '/js/bootstrap-popover.js', array('jquery'), '1.0', true );
-		wp_enqueue_script('scrollspy', 	get_template_directory_uri() . '/js/bootstrap-scrollspy.js', array('jquery'), '1.0', true );
-		wp_enqueue_script('tab', 		get_template_directory_uri() . '/js/bootstrap-tab.js', array('jquery'), '1.0', true );
-		wp_enqueue_script('transition', get_template_directory_uri() . '/js/bootstrap-transition.js', array('jquery'), '1.0', true );
-		wp_enqueue_script('typeahead', 	get_template_directory_uri() . '/js/bootstrap-typeahead.js', array('jquery'), '1.0', true );
 		wp_enqueue_script('init', get_template_directory_uri() . '/js/init.js', array('jquery'), '1.0', true ); 
 	}
 	add_action('wp_enqueue_scripts', 'theme_ressources');
@@ -74,7 +61,8 @@ define('WP_DEBUG', true);
 ***************************************************************/ 
 
 	register_nav_menus(array( 
-		'main-nav' => 'Hauptnavigation'
+		'navigation' => __('Navigation', 'jbm'),
+		'footer-links' => __('Footer Links', 'jbm'),
 	));
 
 
@@ -89,37 +77,7 @@ define('WP_DEBUG', true);
 	    return get_bloginfo($key);
 	}
 	add_shortcode('bloginfo', 'bloginfo_shortcode');
-	
-/***************************************************************
-* 1.5 AJAX Query Title
-* Returns post titles based ajax query input
-***************************************************************/
 
-	add_action('wp_ajax_query_title', 'ajax_query_title');
-	
-	function ajax_query_title() {
-		global $wpdb;
-	
-		// query term to lookup
-		$query = $_GET['query_title'];
-		
-		// get results from database
-		$results = $wpdb->get_results( "SELECT post_title FROM $wpdb->posts WHERE post_title LIKE '%$query%' AND post_type = 'post' AND post_status = 'publish'", ARRAY_N );
-		
-		// flatten result to single array with strings
-		$json = array();
-		if ( $results ) {
-			foreach( $results as $result ) {
-				$json[] = $result[0];
-			}
-		}
-		
-		// print db results in JSON format
-	    echo json_encode( $json );
-	    
-	    // this is required to return a proper result
-	    die(); 
-	}
 
 /***************************************************************
 *  2.1 Remove default screen metaboxes
@@ -174,14 +132,6 @@ define('WP_DEBUG', true);
 * Source: http://snipplr.com/view.php?codeview&id=63771
 ***************************************************************/
 	
-	// use custom login logo
-	function custom_login_logo() {
-	    echo '<style type="text/css">
-	        .login h1 a { background-image:url('.get_bloginfo('template_url').'/images/wordpress-logo.png) !important; }
-	    </style>';
-	}
-	add_action('login_head', 'custom_login_logo');
-	
 	// add own css to admin
 	function add_admin_css() {
 	     wp_enqueue_style('admin', get_bloginfo('template_directory').'/css/admin.css');
@@ -205,12 +155,6 @@ define('WP_DEBUG', true);
 	}
 	add_action( 'wp_before_admin_bar_render', 'remove_items_from_adminbar' );
 	
-	
-/***************************************************************
-* 2.4 Hide Login Errors - removes detailed login error information for security
-***************************************************************/
-	
-	add_filter('login_errors', create_function('$a', "return null;"));
 
 /***************************************************************
 * 3.1 Clean <head>: Use Template instead.
@@ -307,115 +251,6 @@ define('WP_DEBUG', true);
 		return $link;
 	}
 	add_filter('the_content_more_link', 'remove_more_jump_link');
-	
-
-/***************************************************************
-* 3.6 Bootstrap_Walker_Nav_Menu
-* https://gist.github.com/1597994
-***************************************************************/
-
-class Bootstrap_Walker_Nav_Menu extends Walker_Nav_Menu {
-
-	
-	function start_lvl( &$output, $depth ) {
-		
-		//In a child UL, add the 'dropdown-menu' class
-		$indent = str_repeat( "\t", $depth );
-		$output	   .= "\n$indent<ul class=\"dropdown-menu\">\n";
-		
-	}
-
-	function start_el( &$output, $item, $depth = 0, $args = array(), $id = 0 ) {
-		
-		$indent = ( $depth ) ? str_repeat( "\t", $depth ) : '';
-
-		$li_attributes = '';
-		$class_names = $value = '';
-
-		$classes = empty( $item->classes ) ? array() : (array) $item->classes;
-		
-		//Add class and attribute to LI element that contains a submenu UL.
-		if ($args->has_children){
-			$classes[] 		= 'dropdown';
-			$li_attributes .= 'data-dropdown="dropdown"';
-		}
-		$classes[] = 'menu-item-' . $item->ID;
-		//If we are on the current page, add the active class to that menu item.
-		$classes[] = ($item->current) ? 'active' : '';
-
-		//Make sure you still add all of the WordPress classes.
-		$class_names = join( ' ', apply_filters( 'nav_menu_css_class', array_filter( $classes ), $item, $args ) );
-		$class_names = ' class="' . esc_attr( $class_names ) . '"';
-
-		$id = apply_filters( 'nav_menu_item_id', 'menu-item-'. $item->ID, $item, $args );
-		$id = strlen( $id ) ? ' id="' . esc_attr( $id ) . '"' : '';
-
-		$output .= $indent . '<li' . $id . $value . $class_names . $li_attributes . '>';
-
-		//Add attributes to link element.
-		$attributes  = ! empty( $item->attr_title ) ? ' title="'  . esc_attr( $item->attr_title ) .'"' : '';
-		$attributes .= ! empty( $item->target ) ? ' target="' . esc_attr( $item->target     ) .'"' : '';
-		$attributes .= ! empty( $item->xfn ) ? ' rel="'    . esc_attr( $item->xfn        ) .'"' : '';
-		$attributes .= ! empty( $item->url ) ? ' href="'   . esc_attr( $item->url        ) .'"' : '';
-		$attributes .= ($args->has_children) ? ' class="dropdown-toggle" data-toggle="dropdown"' : ''; 
-
-		$item_output = $args->before;
-		$item_output .= '<a'. $attributes .'>';
-		$item_output .= $args->link_before . apply_filters( 'the_title', $item->title, $item->ID ) . $args->link_after;
-		$item_output .= ($args->has_children) ? ' <i class="icon-caret-down"></i> ' : ''; 
-		$item_output .= '</a>';
-		$item_output .= $args->after;
-
-		$output .= apply_filters( 'walker_nav_menu_start_el', $item_output, $item, $depth, $args );
-	}
-
-	//Overwrite display_element function to add has_children attribute. Not needed in >= Wordpress 3.4
-	function display_element( $element, &$children_elements, $max_depth, $depth=0, $args, &$output ) {
-		
-		if ( !$element )
-			return;
-		
-		$id_field = $this->db_fields['id'];
-
-		//display this element
-		if ( is_array( $args[0] ) ) 
-			$args[0]['has_children'] = ! empty( $children_elements[$element->$id_field] );
-		else if ( is_object( $args[0] ) ) 
-			$args[0]->has_children = ! empty( $children_elements[$element->$id_field] ); 
-		$cb_args = array_merge( array(&$output, $element, $depth), $args);
-		call_user_func_array(array(&$this, 'start_el'), $cb_args);
-
-		$id = $element->$id_field;
-
-		// descend only when the depth is right and there are childrens for this element
-		if ( ($max_depth == 0 || $max_depth > $depth+1 ) && isset( $children_elements[$id]) ) {
-
-			foreach( $children_elements[ $id ] as $child ){
-
-				if ( !isset($newlevel) ) {
-					$newlevel = true;
-					//start the child delimiter
-					$cb_args = array_merge( array(&$output, $depth), $args);
-					call_user_func_array(array(&$this, 'start_lvl'), $cb_args);
-				}
-				$this->display_element( $child, $children_elements, $max_depth, $depth + 1, $args, $output );
-			}
-				unset( $children_elements[ $id ] );
-		}
-
-		if ( isset($newlevel) && $newlevel ){
-			//end the child delimiter
-			$cb_args = array_merge( array(&$output, $depth), $args);
-			call_user_func_array(array(&$this, 'end_lvl'), $cb_args);
-		}
-
-		//end this element
-		$cb_args = array_merge( array(&$output, $element, $depth), $args);
-		call_user_func_array(array(&$this, 'end_el'), $cb_args);
-		
-	}
-	
-}
 
 
 /***************************************************************
@@ -471,17 +306,17 @@ class Bootstrap_Walker_Nav_Menu extends Walker_Nav_Menu {
 	}
 
 /***************************************************************
-* 3.9 Display Bootstrap Pagination
+* 3.9 Display Pagination
 ***************************************************************/
 
-	function bootstrap_pagination() {	
+	function pagination() {	
 		global $wp_query;
 		$big = 999999999; // need an unlikely integer
 
 		if ( $wp_query->max_num_pages < 2 )
 			return;
 		
-		$output = '<div class="pagination pagination-centered">';
+		$output = '<div class="pagination">';
 		$output .= paginate_links( array(
 			'base' => str_replace( $big, '%#%', get_pagenum_link( $big ) ),
 			'format' => '?paged=%#%',
@@ -530,25 +365,36 @@ class Bootstrap_Walker_Nav_Menu extends Walker_Nav_Menu {
 	}
 	add_filter('get_image_tag_class', 'add_custom_image_classes', 0, 4);
 	
-/***************************************************************
-* 3.12 Body Background
-***************************************************************/
-	
-	function body_bg(){
-		if ( !is_single() )
-			return;
-			
-		$img = get_field('bg');
-		echo 'style="background-image: url('. $img['url'] .')"';	
-	}
 	
 /***************************************************************
-* 3.13 Language function
+* 3.12 Image captions with figure element
+* https://github.com/eddiemachado/bones/issues/90
 ***************************************************************/
 
-	function is_lang( $lang ) {
-		return (ICL_LANGUAGE_CODE == $lang) ? true : false;
-	}
+// HTML5: Use figure and figcaption for captions
+function html5_caption($attr, $content = null) {
+    $output = apply_filters( 'img_caption_shortcode', '', $attr, $content );
+    if ( $output != '' )
+        return $output;
+
+    extract( shortcode_atts ( array(
+    'id' => '', 
+    'align' => 'alignnone',
+    'width'=> '',
+    'caption' => ''
+    ), $attr ) );
+
+    if ( 1 > (int) $width || empty( $caption ) )
+        return $content;
+
+    if ( $id ) $id = 'id="' . $id . '" ';
+
+    return '<figure ' . $id . 'class="wp-caption ' . $align . '" ><figcaption class="wp-caption-text">' . $caption . '</figcaption>'. do_shortcode( $content ) . '</figure>';
+}
+
+//add_filter('img_caption_shortcode', 'html5_caption',10,3);
+add_shortcode( 'wp_caption', 'html5_caption' );
+add_shortcode( 'caption', 'html5_caption' );
 
 /***************************************************************
 * X.X Code Template
