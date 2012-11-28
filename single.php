@@ -6,7 +6,7 @@
 
 		<article role="article">
 		
-			<h2 class="post-title"><?php the_title(); ?></h2>
+			<h2><?php the_title(); ?></h2>
 			<p class="post-date"><?php the_date(); ?></p>
 	
 			<?php the_content( '' ); ?>			

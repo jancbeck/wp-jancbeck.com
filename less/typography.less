@@ -44,8 +44,7 @@ pre,
 code,
 kbd,
 samp {
-    font-family: monospace, serif;
-    _font-family: 'courier new', monospace;
+    font-family: @monoFontFamily, monospace, serif;
     font-size: 1em;
 }
 
@@ -113,6 +112,11 @@ h1, h2, h3, h4, h5, h6,
 }
 h1 {
 	font-size: 3em;
+}
+h2 {
+	font-size: 2em;
+	margin-top: 2em;
+	margin-bottom: .5em;
 }
 h4 {
 	text-align: left;
@@ -209,14 +213,18 @@ article[role=article] {
 	figcaption,
 	> ul, > ol, > dl,
 	h1, h2, h3, h4, h5, h6,
+	blockquote,
 	> .heading {
-		max-width: 35em;
+		max-width: 570px	;
 		margin-left: auto;
 		margin-right: auto;
 		padding-left: 2em;
 		padding-right: 2em;
 	}
-	> blockquote,
+	blockquote {
+		.center();
+		max-width: 31em;
+	}
 	> table,
 	> form {
 		padding-left: 2em;
@@ -225,8 +233,11 @@ article[role=article] {
 }
 blockquote,
 img {
-	max-width: 100%;
 	.center();
+}
+p {
+	margin-top: 1.5em;
+	margin-bottom: 1.5em;
 }
 table,
 pre {
@@ -239,14 +250,10 @@ pre {
 	font-family: @sansFontFamily;
 	text-transform: uppercase;
 	color: #aaa;
+	margin-top: 0;
 }
 blockquote {
-	max-width: 35em;
-	padding-right: 2em;
 	border-left: .5em solid #eee;
-	padding-left: 1.5em;
-	margin-left: auto;
-	font-size: 1.2em;
 	font-style: italic;
 	
 	blockquote {

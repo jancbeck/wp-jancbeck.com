@@ -5,20 +5,31 @@
 table {
     border-collapse: collapse;
     border-spacing: 0;
-    text-align: center;
+    text-align: left;
+    margin-top: 1.5em;
+    margin-bottom: 1.5em;
 }
 td, th {
 	padding: .5em;
-	border: 1px solid @grey;
-	.box-shadow(inset 1px 1px 0 #fff);
+	border-top: 1px solid @light;
+	border-bottom: 1px solid @light;
 }
 th {
-	background: @grey;
+	thead {
+		border-bottom: 1px solid @light;
+		border-top: 2px solid @light;
+	}
+	
+	tfoot & {
+		border-bottom: 1px solid @light;
+		border-top: 2px solid @light;
+	}
 }
-tr:nth-child(even),
-tr:hover {
-	background: @light;
+tr:nth-child(even) {
+	background: lighten(@light, 5%);
 }
 caption {
 	.heading;
+	.font-size(20);
+	margin-bottom: .5em;
 }

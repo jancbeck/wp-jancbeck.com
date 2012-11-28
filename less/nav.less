@@ -1,17 +1,19 @@
 nav[role=navigation],
 footer[role=contentinfo] {
 	text-align: center;
+	font-family: @sansFontFamily;
 	
 	ul {
 		.nav;
 	}
-	li {
-		display: inline-block;
-		margin: 1em;
+	li, a {
+		.inline-block();
+	}
+	a {
+		padding: 1em;
 	}
 }
 nav[role=navigation] {
-	border-bottom: 1px solid #eee;
 	margin-bottom: 3em;
 }
 footer[role=contentinfo] {

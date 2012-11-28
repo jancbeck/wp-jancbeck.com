@@ -6,7 +6,7 @@
 
 		<article role="article">
 		
-			<h2 class="post-title"><a href="<?php echo get_permalink(); ?>"><?php the_title(); ?></a></h2>
+			<h2><a href="<?php echo get_permalink(); ?>"><?php the_title(); ?></a></h2>
 			<p class="post-date"><?php the_date(); ?></p>
 	
 			<?php the_content( '' ); ?>			

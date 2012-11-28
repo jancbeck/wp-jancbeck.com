@@ -15,17 +15,17 @@
 * 		3.1 Clean <head>
 * 		3.2 Add Section Class
 * 		3.3 has_attachments()
-*		3.4 Force compile less
-* 		3.5 Remove More Jump
-* 		3.6 Bootstrap_Walker_Nav_Menu
-*		3.7 Attachment Carousel
-*		3.8 Get first Category of post
-*		3.9 Display Bootstrap Pagination
-*		3.10 Has more
+* 		3.4 Remove More Jump
+*		3.5 Get first Category of post
+*		3.6 Display Bootstrap Pagination
+*		3.7 Has more
+* 		3.8 Insert Images with Figure/figcaption
 * 
 ***************************************************************/
 
 define('WP_DEBUG', true);
+
+require_once( 'libs/wp-less/wp-less.php' );
 
 /***************************************************************
 * 1.1 ENQUEUE SCRIPTS
@@ -43,7 +43,6 @@ define('WP_DEBUG', true);
 	
 	// wp_enqueue_style( $handle, $src, $deps, $ver, $media );
 	
-	
 	if ( !is_admin() )
 		wp_enqueue_style( 'style', get_template_directory_uri() . '/less/jbm.less' ); 
 
@@ -53,7 +52,8 @@ define('WP_DEBUG', true);
 ***************************************************************/
 	
 	add_theme_support( 'post-thumbnails' );
-	add_editor_style( 'css/editor.css' );	
+	add_image_size('retina_full', 1920, 9999);
+	add_editor_style( 'less/editor.less' );	
     load_theme_textdomain( 'jbm', get_template_directory() .'/languages' );
 	
 /***************************************************************
@@ -146,12 +146,12 @@ define('WP_DEBUG', true);
 	
 	
 	function remove_items_from_adminbar(){
-	        global $wp_admin_bar;
-	        $wp_admin_bar->remove_menu( 'comments' );
-	        $wp_admin_bar->remove_menu( 'backwpup' );
-	        $wp_admin_bar->remove_menu( 'wp-logo' );
-			$wp_admin_bar->remove_menu( 'appearance' );
-			$wp_admin_bar->remove_menu( 'my-account-with-avatar' );
+        global $wp_admin_bar;
+        $wp_admin_bar->remove_menu( 'comments' );
+        $wp_admin_bar->remove_menu( 'backwpup' );
+        $wp_admin_bar->remove_menu( 'wp-logo' );
+		$wp_admin_bar->remove_menu( 'appearance' );
+		$wp_admin_bar->remove_menu( 'my-account-with-avatar' );
 	}
 	add_action( 'wp_before_admin_bar_render', 'remove_items_from_adminbar' );
 	
@@ -223,20 +223,9 @@ define('WP_DEBUG', true);
 			return false;
 	}
 	
-	
-/***************************************************************
-* 3.4 Force compile less
-***************************************************************/
-
-	function always_compile_less() {
-		global $WPLessPlugin;
-		$WPLessPlugin->processStylesheets(true);
-	}
-	add_action( 'wp', 'always_compile_less' );
-	
 
 /***************************************************************
-* 3.5 Remove More Jump
+* 3.4 Remove More Jump
 ***************************************************************/
 
 	function remove_more_jump_link($link) { 
@@ -252,52 +241,8 @@ define('WP_DEBUG', true);
 	}
 	add_filter('the_content_more_link', 'remove_more_jump_link');
 
-
 /***************************************************************
-* 3.7 Attachment Carousel 
-***************************************************************/
-
-	function get_attachment_carousel() {
-		
-		global $post;
-		
-		// gets attachments for the current post
-		$args = array( 
-			'post_type' => 'attachment', 
-			'numberposts' => -1, 
-			'post_status' => null, 
-			'post_parent' => $post->ID 
-		); 
-		$attachments = get_posts( $args ); 
-		$first = 0;
-		$output = '';
-			
-		if ( $attachments ) {
-			
-			$output .= '
-			<div id="stickies" class="carousel slide">
-					<div class="carousel-inner">';
-			
-			foreach( $attachments as $attachment ) :
-				
-				$output .= '<div class="item'. ( $first++ == 0 ? ' active' : '') .'">'. wp_get_attachment_image( $attachment->ID, 'full' ) .'</div>';
-				
-			endforeach;
-			
-			$output .= '
-					</div>
-					<!-- Carousel nav -->
-				<a class="carousel-control left" href="#stickies" data-slide="prev">&lsaquo;</a>
-				<a class="carousel-control right" href="#stickies" data-slide="next">&rsaquo;</a>
-			</div>';
-			
-		}
-		return $output;
-	}
-	add_shortcode('attachment_carousel', 'get_attachment_carousel');
-
-/***************************************************************
-* 3.8 Get first Category of post
+* 3.5 Get first Category of post
 ***************************************************************/
 
 	function get_first_category( ) {
@@ -306,7 +251,7 @@ define('WP_DEBUG', true);
 	}
 
 /***************************************************************
-* 3.9 Display Pagination
+* 3.6 Display Pagination
 ***************************************************************/
 
 	function pagination() {	
@@ -316,7 +261,7 @@ define('WP_DEBUG', true);
 		if ( $wp_query->max_num_pages < 2 )
 			return;
 		
-		$output = '<div class="pagination">';
+		$output = '<nav role="navigation">';
 		$output .= paginate_links( array(
 			'base' => str_replace( $big, '%#%', get_pagenum_link( $big ) ),
 			'format' => '?paged=%#%',
@@ -330,14 +275,14 @@ define('WP_DEBUG', true);
 			'total' => $wp_query->max_num_pages,
 			'type' => 'list'
 		) );
-		$output .= '</div>';
+		$output .= '</nav>';
 		return $output;
 	}
 	
 	
 	
 /***************************************************************
-* 3.10 Has more
+* 3.7 Has more
 * http://wordpress.org/support/topic/conditional-tag-to-check-for-lt-more-gt
 ***************************************************************/
 
@@ -347,54 +292,38 @@ define('WP_DEBUG', true);
 	}
 	
 /***************************************************************
-* 3.11 Add custom image classes
-***************************************************************/
-	
-	function add_custom_image_classes( $class, $id, $align, $size ) {
-		$img = wp_get_attachment_image_src( $id, 'full' );
-		$shadowless = get_field( 'shadowless', $id );
-		$add = '';
-		
-		if ( $img[1] >= 992 )
-			$add .= ' gte-992';
-			
-		if ( $shadowless )
-			$add .= ' shadowless';
-			
-		return $class . $add;	
-	}
-	add_filter('get_image_tag_class', 'add_custom_image_classes', 0, 4);
-	
-	
-/***************************************************************
-* 3.12 Image captions with figure element
-* https://github.com/eddiemachado/bones/issues/90
+* 3.8 Use shortcode for images
 ***************************************************************/
 
-// HTML5: Use figure and figcaption for captions
-function html5_caption($attr, $content = null) {
-    $output = apply_filters( 'img_caption_shortcode', '', $attr, $content );
-    if ( $output != '' )
-        return $output;
-
-    extract( shortcode_atts ( array(
-    'id' => '', 
-    'align' => 'alignnone',
-    'width'=> '',
-    'caption' => ''
-    ), $attr ) );
-
-    if ( 1 > (int) $width || empty( $caption ) )
-        return $content;
-
-    if ( $id ) $id = 'id="' . $id . '" ';
-
-    return '<figure ' . $id . 'class="wp-caption ' . $align . '" ><figcaption class="wp-caption-text">' . $caption . '</figcaption>'. do_shortcode( $content ) . '</figure>';
+function insert_image_shortcode($html, $id, $caption, $title, $align, $url) {
+  return "[image id='$id']";
 }
+add_filter( 'image_send_to_editor', 'insert_image_shortcode', 10, 9 );
 
-//add_filter('img_caption_shortcode', 'html5_caption',10,3);
-add_shortcode( 'wp_caption', 'html5_caption' );
-add_shortcode( 'caption', 'html5_caption' );
+function image_shortcode( $atts ) {
+    extract(shortcode_atts(array(
+        'id' => '',
+    ), $atts));
+    $caption = get_post_field('post_excerpt', $id);
+    $title = get_post_field('post_title', $id);
+    $image_src = wp_get_attachment_image_src($id, 'full');
+    $retina = false;
+    
+    $output = '<figure>';
+    
+    if ($image_src[1] > 1920 && $retina)
+    	$output .= wp_get_attachment_image($id, 'retina_full');
+    elseif ($image_src[1] > 960)
+    	$output .= '<a href="'.$image_src[0].'">'. wp_get_attachment_image($id, 'large') .'</a>';
+    else
+    	$output .= wp_get_attachment_image($id, 'full');    
+    
+    if ($caption)
+    	$output .= "<figcaption><strong>$title:</strong> $caption</figcaption>";
+    $output .= '</figure>';
+    return $output;
+}
+add_shortcode('image', 'image_shortcode');
 
 /***************************************************************
 * X.X Code Template
