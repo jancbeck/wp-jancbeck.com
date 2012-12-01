@@ -6,15 +6,20 @@ footer[role=contentinfo] p {
 	
 	h1 {
 		margin: 0;
-		
-		&:before {
-			content: "jB";
-			color: white;
-			margin: 0;
-		}
 		a {
-			text-indent: -9999px;
+			color: white;
 			display: block;
+			
+			&:hover span {
+				max-width: 1000px;
+				.transition(all 1s ease);
+			}
+		}
+		span {
+			max-width: 0;
+			display: inline-block;
+			overflow: hidden;
+			.transition(all 1s ease);
 		}
 	}
 	a {

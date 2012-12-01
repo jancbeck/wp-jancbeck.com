@@ -15,9 +15,9 @@ td, th {
 	border-bottom: 1px solid @light;
 }
 th {
-	thead {
-		border-bottom: 1px solid @light;
-		border-top: 2px solid @light;
+	thead &, & {
+		border-bottom: 2px solid @light;
+		border-top: 1px solid @light;
 	}
 	
 	tfoot & {
@@ -31,5 +31,6 @@ tr:nth-child(even) {
 caption {
 	.heading;
 	.font-size(20);
-	margin-bottom: .5em;
+	margin-bottom: 1em;
+	margin-top: 1em;
 }
