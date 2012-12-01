@@ -36,8 +36,9 @@ require_once( 'libs/wp-less/wp-less.php' );
 		// wp_enqueue_script( $handle, $src, $deps, $ver, $in_footer );
 	
 		wp_deregister_script('l10n');
-		wp_enqueue_script('jquery'); 
-		wp_enqueue_script('init', get_template_directory_uri() . '/js/init.js', array('jquery'), '1.0', true ); 
+		wp_deregister_script('jquery');
+		/*wp_enqueue_script('jquery'); 
+		wp_enqueue_script('init', get_template_directory_uri() . '/js/init.js', array('jquery'), '1.0', true );  */
 	}
 	add_action('wp_enqueue_scripts', 'theme_ressources');
 	
@@ -52,7 +53,6 @@ require_once( 'libs/wp-less/wp-less.php' );
 ***************************************************************/
 	
 	add_theme_support( 'post-thumbnails' );
-	add_image_size('retina_full', 1920, 9999);
 	add_editor_style( 'less/editor.less' );	
     load_theme_textdomain( 'jbm', get_template_directory() .'/languages' );
 	
@@ -307,13 +307,10 @@ function image_shortcode( $atts ) {
     $caption = get_post_field('post_excerpt', $id);
     $title = get_post_field('post_title', $id);
     $image_src = wp_get_attachment_image_src($id, 'full');
-    $retina = false;
     
     $output = '<figure>';
     
-    if ($image_src[1] > 1920 && $retina)
-    	$output .= wp_get_attachment_image($id, 'retina_full');
-    elseif ($image_src[1] > 960)
+    if ($image_src[1] > 960)
     	$output .= '<a href="'.$image_src[0].'">'. wp_get_attachment_image($id, 'large') .'</a>';
     else
     	$output .= wp_get_attachment_image($id, 'full');    
@@ -325,6 +322,36 @@ function image_shortcode( $atts ) {
 }
 add_shortcode('image', 'image_shortcode');
 
+/***************************************************************
+* 3.9 Customize Theme
+***************************************************************/
+
+	function theme_customize_register( $wp_customize ) {
+	   $wp_customize->add_setting( 'highlight_color' , array(
+	       'default' => '#08c',
+	       'type'		=> 'theme_mod',
+	       'capability'	=> 'edit_theme_options',
+	       'transport' => 'postMessage'
+	   ) );
+	   $wp_customize->add_section( 'theme_colors' , array(
+	       'title'      => __('Custom Colors', 'jbm'),
+	       'priority'   => 30,
+	   ) );
+	   $wp_customize->add_control( new WP_Customize_Color_Control( $wp_customize, 'highlight_color', array(
+	   	'label'        => __( 'Highlight Color', 'jbm' ),
+	   	'section'    => 'theme_colors',
+	   	'settings'   => 'highlight_color',
+	   ) ) );
+	}
+	add_action( 'customize_register', 'theme_customize_register' );
+	
+	
+	function custom_less_vars( $vars, $handle ) {
+	    $vars[ 'highlight' ] = get_theme_mod('highlight_color');
+	    return $vars;
+	}
+	add_filter( 'less_vars', 'custom_less_vars', 10, 2 );
+	
 /***************************************************************
 * X.X Code Template
 ***************************************************************/
