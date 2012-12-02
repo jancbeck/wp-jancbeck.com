@@ -4,7 +4,6 @@
 		'container' => '',
 		'menu_class' => 'navigation'	
 	)); ?>
-	<a class="scroll-to-top" href="#top">↑</a>
 </footer>
 
 <?php wp_footer(); ?>
