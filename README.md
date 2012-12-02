@@ -6,11 +6,8 @@ Private blog theme hosted on github.
 
 * Remove German comments
 * Add hooks & filters for plugins
-* Add semantic markup (microformats, meta...)
 * Buttons for reference in editor
-* SEO
 * Make video embeds in figure element
 * Fix vimeo responsiveness
 * Make gists more pretty on mobile
 * Clean code style
-* Test readability scrapability
