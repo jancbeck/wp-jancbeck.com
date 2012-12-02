@@ -16,7 +16,7 @@
 
 	<?php wp_head(); ?>
 
-	<title><?php wp_title('|', true, 'right'); bloginfo('name'); echo(!is_front_page() ? '' : ' | '. get_bloginfo('description')) ?></title>
+	<title><?php wp_title('|', true, 'right'); ?></title>
 </head>
 
 <body <?php body_class(); ?> id="top">
