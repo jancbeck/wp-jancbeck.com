@@ -75,6 +75,17 @@ input[type="submit"] {
     cursor: pointer; /* 1 */
     -webkit-appearance: button; /* 2 */
     *overflow: visible;  /* 3 */
+    background-color: @highlight;
+    .border-radius();
+    border: none;
+    color: white;
+    padding: .5em 1em;
+    font-family: @sansFontFamily;
+    
+    &:hover {
+    	background-color: @light;
+    	color: @textColor;
+    }
 }
 
 /*
