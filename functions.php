@@ -507,11 +507,25 @@ require_once( 'libs/wp-less/wp-less.php' );
 	
 	function video_in_figure($html, $url, $args) {
 		
-		if (false !== strpos($url, 'youtube.com')) {
-			$html = str_replace("<p><span class='embed-youtube'", "<figure><span class='embed-youtube'", $html);
-			$html = str_replace("</iframe></span></p>", "</iframe></span></figure>", $html);
+		// follow aspect ratio
+		$atts = array();
+		preg_match_all('/(width|height|src)=("[^"]*")/i', $html, $atts);
+		$height = trim( $atts[2][2], '"' );
+		$width = trim( $atts[2][1], '"' );
+		$padding = ( $height != 0 && $height != 0 ? $height / $width * 100 : 56.25);
+				
+		if (false !== strpos($url, 'vimeo.com') && ! empty($atts)) {
+						
+			$html = str_replace("<iframe", "<figure class='embed-vimeo' style='padding-bottom: $padding%'><iframe", $html);
+			$html = str_replace("</iframe>", "</iframe></figure>", $html);
 		}
-		
+		// not working:
+		if (false !== strpos($url, 'youtube') && ! empty($atts)) {
+			
+			$html = str_replace('<span class="embed-youtube" style="text-align:center; display: block;">', "<figure class='embed-youtube' style='padding-bottom: $padding%'>", $html);
+			$html = str_replace("</span>", "</figure>", $html);
+		}
+				
 		return $html;
 	}
 	
