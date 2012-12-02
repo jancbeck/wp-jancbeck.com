@@ -1,31 +1,145 @@
-header[role=banner],
-footer[role=contentinfo] p {
+body {
+	position: relative;
+	margin: auto;
+}
+header[role=banner] {
+	font-size: 3em;
+	font-weight: bold;
+	padding-left: .7em;
+	font-family: @sansFontFamily;
 	background: @highlight;
-	margin: 0;
-	max-height: 5em;
+	.transition();
 	
-	h1 {
-		margin: 0;
-		a {
-			color: white;
-			display: block;
-			
-			&:hover span {
-				max-width: 1000px;
-				.transition(all 1s ease);
-			}
-		}
-		span {
-			max-width: 0;
-			display: inline-block;
-			overflow: hidden;
-			.transition(all 1s ease);
+	a {
+		color: white;
+		
+		&:hover {
+			color: black;
 		}
 	}
+}
+@media screen and (min-width: 30em) {
+	header[role=banner] {
+		background: transparent;
+		
+		a {
+			color: @linkColor;
+		}
+	}
+}
+nav[role=navigation],
+footer[role=contentinfo] {
+	text-align: center;
+	font-family: @sansFontFamily;
+	
+	ul {
+		.nav;
+	}
+	li {
+		padding: 1.5em 1em;
+		margin: 0;
+	}
+	li, a {
+		.inline-block();
+	}
+	a {
+		font-size: 1.2em;
+		
+		&:hover {
+			color: black;
+		}
+	}
+}
+nav[role=navigation] {
+	position: absolute;
+	top: 0;
+	right: 1em;
+	z-index: 1;
+	
 	a {
 		color: white;
 	}
 }
+@media screen and (min-width: 30em) {
+	nav[role=navigation] a {
+		color: @linkColor;
+	}
+}
+footer[role=contentinfo] {
+	border-top: 1px solid #eee;
+	margin-top: 8em;
+}
+main[role=main] {
+	clear: both;
+	margin: auto;
+	display: block;
+}
 article[role=article] {
-	margin-top: 5em;
+	margin-top: 2em;
+	overflow: hidden;
+	max-width: 960px;
+	margin-left: auto;
+	margin-right: auto;
+}
+article[role=article] > *,
+article[role=article] figcaption {
+	max-width: 560px;
+	margin-left: auto;
+	margin-right: auto;
+	padding-left: 2em;
+	padding-right: 2em;
+}
+@media screen and (max-width: 40em) {
+	article[role=article] > {
+		h1, h2, h3, h4, h5 ,h6 {
+			padding-left: 1em;
+			padding-right: 1em;
+		}
+	}
+}
+article[role=article] figure {
+	padding-left: 0;
+	padding-right: 0;
+}
+article[role=article]  {
+	figure,
+	table,
+	pre,
+	iframe { 
+		max-width: none;
+	}
+}
+blockquote,
+img {
+	.center();
+}
+blockquote {
+	font-style: italic;
+	margin-left: 2em;
+	
+	blockquote {
+		.font-size(19, 19);
+		/* We have to go deeper! */
+	}
+}
+article[role=article] > blockquote {
+	margin-left: 2em;
+	max-width: 30em;
+}
+@media screen and (min-width: 35em) {
+	article[role=article] > blockquote {
+		margin-left: auto;
+	}
+}
+@media screen and (min-width: 50em) {
+	article[role=article] > blockquote {
+		max-width: 30em;
+	}
+}
+.scroll-to-top {
+	position: absolute;
+	bottom: 1em;
+	right: 2em;
+	padding: .5em;
+	line-height: 1;
 }
