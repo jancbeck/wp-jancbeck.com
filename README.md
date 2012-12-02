@@ -11,3 +11,6 @@ Private blog theme hosted on github.
 * Fix vimeo responsiveness
 * Make gists more pretty on mobile
 * Clean code style
+* Add front page
+* Add portfolio page
+* Add blog index page
