@@ -333,9 +333,10 @@ function debug( $msg ) {
 	add_filter( 'image_send_to_editor', 'insert_image_shortcode', 10, 9 );
 	
 	if ( ! isset( $content_width ) ) $content_width = 960;
+	
 	function image_shortcode( $atts ) {
 		
-		global $post;
+		global $post, $content_width;
 
 	    extract(shortcode_atts(array(
 	        'id' => '',
@@ -345,25 +346,27 @@ function debug( $msg ) {
 	    if (empty($id))
 	    	return '';
 	    
+	    $save_id = get_current_blog_id();
 	    $blog_list = get_blog_list( 0, 'all' );
-	    $blog_id = 0;
-		
+	    		
 		// Search for the site the image comes from
 	    foreach ( $blog_list AS $blog ) {
 	    	switch_to_blog( $blog['blog_id'] );
-	    	if ( wp_get_attachment_image_src( $id, 'full') != '' ) break;
+	    	if ( wp_get_attachment_image_src( $id, 'full') ) break;
 	    }
-	    	    
+	      
 	    $caption = get_post_field( 'post_excerpt', $id );
 	    $title = get_post_field( 'post_title', $id );
 	    $image_src = wp_get_attachment_image_src( $id, 'full' );
-	    $image = wp_get_attachment_image($id, 'large');
+	    $image = wp_get_attachment_image($id, 'large', false, array(
+	    	'src'	=> $image_src[0] . '?filter=grayscale'
+	    ));
 	    	    
 	    $output = '<figure class="media-'. $id .' '. $class .'">';
+
+	    if ($image_src[1] > $content_width) {
 	    
-	    if ($image_src[1] > 960) {
-	    
-	    	if (is_single())
+	    	if (is_single() || is_page())
 	    		$link = $image_src[0];
 	    	else
 	    		$link = get_permalink($post->ID);
@@ -377,7 +380,10 @@ function debug( $msg ) {
 	    if ($caption)
 	    	$output .= "<figcaption><strong>$title:</strong> $caption</figcaption>";
 	    $output .= '</figure>';
-	    restore_current_blog();
+	    
+	    // switch back to original site
+	    switch_to_blog( $save_id );
+	    
 	    return $output;
 	}
 	add_shortcode('image', 'image_shortcode');
