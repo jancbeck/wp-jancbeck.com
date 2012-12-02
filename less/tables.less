@@ -8,9 +8,11 @@ table {
     text-align: left;
     margin-top: 1.5em;
     margin-bottom: 1.5em;
+    min-width: 100%;
+    max-width: 40em;
 }
 td, th {
-	padding: .5em;
+	padding: .5em 1em;
 	border-top: 1px solid @light;
 	border-bottom: 1px solid @light;
 }
@@ -25,7 +27,7 @@ th {
 		border-top: 2px solid @light;
 	}
 }
-tr:nth-child(even) {
+tr:nth-child(even), th {
 	background: lighten(@light, 5%);
 }
 caption {
