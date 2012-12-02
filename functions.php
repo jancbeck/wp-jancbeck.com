@@ -28,8 +28,6 @@
 * 
 ***************************************************************/
 
-define('WP_DEBUG', true);
-
 require_once( 'libs/wp-less/wp-less.php' );
 
 /***************************************************************
@@ -44,13 +42,15 @@ require_once( 'libs/wp-less/wp-less.php' );
 		wp_deregister_script('jquery');
 		/*wp_enqueue_script('jquery'); 
 		wp_enqueue_script('init', get_template_directory_uri() . '/js/init.js', array('jquery'), '1.0', true );  */
+		
+		// wp_enqueue_style( $handle, $src, $deps, $ver, $media );
+		
+		if ( !is_admin() )
+			wp_enqueue_style( 'style', get_template_directory_uri() . '/less/jbm.less' ); 
 	}
 	add_action('wp_enqueue_scripts', 'theme_ressources');
 	
-	// wp_enqueue_style( $handle, $src, $deps, $ver, $media );
 	
-	if ( !is_admin() )
-		wp_enqueue_style( 'style', get_template_directory_uri() . '/less/jbm.less' ); 
 
 
 /***************************************************************
@@ -60,6 +60,7 @@ require_once( 'libs/wp-less/wp-less.php' );
 	add_theme_support( 'post-thumbnails' );
 	add_editor_style( 'less/editor.less' );	
     load_theme_textdomain( 'jbm', get_template_directory() .'/language' );
+
 	
 /***************************************************************
 * 1.3 Register Menus
@@ -139,13 +140,13 @@ require_once( 'libs/wp-less/wp-less.php' );
 	
 	// add own css to admin
 	function add_admin_css() {
-	     wp_enqueue_style('admin', get_bloginfo('template_directory').'/css/admin.css');
+	     wp_enqueue_style('admin', get_template_directory_uri().'/css/admin.css');
 	}
 	add_action('admin_print_styles', 'add_admin_css');
 	
 	// add own js to admin	
 	function add_admin_js() {
-	     wp_enqueue_script('admin', get_bloginfo('template_directory').'/js/admin.js');
+	     wp_enqueue_script('admin', get_template_directory_uri().'/js/admin.js');
 	}
 	add_action('admin_print_scripts', 'add_admin_js');
 	
@@ -294,8 +295,8 @@ require_once( 'libs/wp-less/wp-less.php' );
 			'end_size' => 1,
 			'mid_size' => 2,
 			'prev_next' => true,
-			'prev_text' => __('&laquo;'),
-			'next_text' => __('&raquo;'),
+			'prev_text' => '&laquo;',
+			'next_text' => '&raquo;',
 			'current' => max( 1, get_query_var('paged') ),
 			'total' => $wp_query->max_num_pages,
 			'type' => 'list'
@@ -328,8 +329,7 @@ require_once( 'libs/wp-less/wp-less.php' );
 	function image_shortcode( $atts ) {
 		
 		global $post;
-		switch_to_blog( 1 );
-		
+
 	    extract(shortcode_atts(array(
 	        'id' => '',
 	        'class' => ''
