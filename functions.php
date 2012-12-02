@@ -30,6 +30,11 @@
 ***************************************************************/
 
 require_once( 'libs/wp-less/wp-less.php' );
+require_once( 'libs/ChromePhp.php' );
+
+function debug( $msg ) {
+	return WP_DEBUG ? ChromePhp::log($msg) : false;
+}
 
 /***************************************************************
 * 1.1 ENQUEUE SCRIPTS
