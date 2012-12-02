@@ -25,6 +25,7 @@
 * 		3.11 Overwrite Notes Plugin
 * 		3.12 Embedd Gist links
 * 		3.13 Allow fullscreen video embeds
+* 		3.14 Disable Jetpack Opengraph
 * 
 ***************************************************************/
 
@@ -515,6 +516,11 @@ require_once( 'libs/wp-less/wp-less.php' );
 	}
 	
 /***************************************************************
+* 3.14 Disable Jetpack Opengraph
+***************************************************************/
+
+	remove_action('wp_head','jetpack_og_tags');	
+
+/***************************************************************
 * X.X Code Template
 ***************************************************************/
-	
