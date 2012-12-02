@@ -129,7 +129,7 @@
 			box-shadow: inset @x @y @blur @spread @color;	
 }
 
-.transition(@transition) {
+.transition(@transition: all .3s ease) {
   -webkit-transition: @transition;
      -moz-transition: @transition;
       -ms-transition: @transition;
@@ -248,5 +248,4 @@
 	   -moz-box-sizing: @type;
     -ms-box-sizing: @type;
 	        box-sizing: @type;
-	*behavior: url(js/boxsizing.htc);		
 }
