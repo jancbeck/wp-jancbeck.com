@@ -87,16 +87,8 @@ article[role=article] figcaption {
 	max-width: 560px;
 	margin-left: auto;
 	margin-right: auto;
-	padding-left: 2em;
-	padding-right: 2em;
-}
-@media screen and (max-width: 40em) {
-	article[role=article] > {
-		h1, h2, h3, h4, h5 ,h6 {
-			padding-left: 1em;
-			padding-right: 1em;
-		}
-	}
+	padding-left: 20px;
+	padding-right: 20px;
 }
 article[role=article] figure {
 	padding-left: 0;
@@ -116,20 +108,26 @@ img {
 }
 blockquote {
 	font-style: italic;
-	margin-left: 2em;
+	margin-left: 20px;
 	
 	blockquote {
 		.font-size(19, 19);
 		/* We have to go deeper! */
 	}
+	cite {
+		text-align: right;
+		display: block;
+	}
 }
 article[role=article] > blockquote {
-	margin-left: 2em;
+	margin-left: 20px;
+	margin-right: 20px;
 	max-width: 30em;
 }
 @media screen and (min-width: 35em) {
 	article[role=article] > blockquote {
 		margin-left: auto;
+		margin-right: auto;
 	}
 }
 @media screen and (min-width: 50em) {
