@@ -7,9 +7,9 @@
 		<article role="article">
 		
 			<h2><a href="<?php echo get_permalink(); ?>"><?php the_title(); ?></a></h2>
-			<p class="post-date"><?php the_date(); ?></p>
+			<p class="post-meta"><?php echo sprintf(__('By <strong>%1s</strong> on %2s', 'jbm'), get_the_author(), get_the_date()) ?></p>
 	
-			<?php the_content( '' ); ?>			
+			<?php the_content(); ?>			
 
 		</article>
 
