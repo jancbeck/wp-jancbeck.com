@@ -20,6 +20,11 @@
 *		3.6 Display Bootstrap Pagination
 *		3.7 Has more
 * 		3.8 Insert Images with Figure/figcaption
+* 		3.9 Customize Theme
+* 		3.10 Make twitter embedd responsive
+* 		3.11 Overwrite Notes Plugin
+* 		3.12 Embedd Gist links
+* 		3.13 Allow fullscreen video embeds
 * 
 ***************************************************************/
 
@@ -54,7 +59,7 @@ require_once( 'libs/wp-less/wp-less.php' );
 	
 	add_theme_support( 'post-thumbnails' );
 	add_editor_style( 'less/editor.less' );	
-    load_theme_textdomain( 'jbm', get_template_directory() .'/languages' );
+    load_theme_textdomain( 'jbm', get_template_directory() .'/language' );
 	
 /***************************************************************
 * 1.3 Register Menus
@@ -225,27 +230,47 @@ require_once( 'libs/wp-less/wp-less.php' );
 	
 
 /***************************************************************
-* 3.4 Remove More Jump
+* 3.4 Add post thumbnail to content
 ***************************************************************/
 
-	function remove_more_jump_link($link) { 
-		$offset = strpos($link, '#more-');
+	function add_post_thumbnail_to_content( $content ) {
 		
-		if ($offset)
-			$end = strpos($link, '"',$offset);
-
-		if ($end)
-			$link = substr_replace($link, '', $offset, $end-$offset);
-
-		return $link;
+		global $post;
+		
+		// Do nothing if post has no thumbnail set
+		if ( ! has_post_thumbnail( $post->ID ))
+			return $content;
+		
+		$id = get_post_thumbnail_id( $post->ID );
+		
+		// attach thumbnail even if post has no more tag set
+		if ( ! $pos = strpos( $post->post_content, '<!--more-->' ))
+			return $content . "[image id='$id']";
+			
+		// on single post insert thumbnail into article flow
+		return str_replace( '<p><span id="more-', '[image id="'. $id .'"]<p><span id="more-', $content );
 	}
-	add_filter('the_content_more_link', 'remove_more_jump_link');
+	add_filter( 'the_content', 'add_post_thumbnail_to_content' );
+	
+	
+	function replace_more_link_with_post_thumbnail( $more_link, $more_link_text ) {
+
+		global $post;
+
+		if ( ! has_post_thumbnail($post->ID) )
+			return '';
+			
+		$id = get_post_thumbnail_id($post->ID);
+			
+		return str_replace( $more_link_text, "[image id='$id']", $more_link );
+	}
+	add_filter( 'the_content_more_link', 'replace_more_link_with_post_thumbnail', 10, 2 );
 
 /***************************************************************
 * 3.5 Get first Category of post
 ***************************************************************/
 
-	function get_first_category( ) {
+	function get_first_category() {
 		$category = get_the_category(); 
 		return $category[0]->cat_name;
 	}
@@ -295,55 +320,154 @@ require_once( 'libs/wp-less/wp-less.php' );
 * 3.8 Use shortcode for images
 ***************************************************************/
 
-function insert_image_shortcode($html, $id, $caption, $title, $align, $url) {
-  return "[image id='$id']";
-}
-add_filter( 'image_send_to_editor', 'insert_image_shortcode', 10, 9 );
-
-function image_shortcode( $atts ) {
-    extract(shortcode_atts(array(
-        'id' => '',
-    ), $atts));
-    $caption = get_post_field('post_excerpt', $id);
-    $title = get_post_field('post_title', $id);
-    $image_src = wp_get_attachment_image_src($id, 'full');
-    
-    $output = '<figure>';
-    
-    if ($image_src[1] > 960)
-    	$output .= '<a href="'.$image_src[0].'">'. wp_get_attachment_image($id, 'large') .'</a>';
-    else
-    	$output .= wp_get_attachment_image($id, 'full');    
-    
-    if ($caption)
-    	$output .= "<figcaption><strong>$title:</strong> $caption</figcaption>";
-    $output .= '</figure>';
-    return $output;
-}
-add_shortcode('image', 'image_shortcode');
+	function insert_image_shortcode($html, $id, $caption, $title, $align, $url) {
+	  return "[image id='$id']";
+	}
+	add_filter( 'image_send_to_editor', 'insert_image_shortcode', 10, 9 );
+	
+	function image_shortcode( $atts ) {
+		
+		global $post;
+		switch_to_blog( 1 );
+		
+	    extract(shortcode_atts(array(
+	        'id' => '',
+	        'class' => ''
+	    ), $atts));
+	    
+	    if (empty($id))
+	    	return '';
+	    
+	    $blog_list = get_blog_list( 0, 'all' );
+	    $blog_id = 0;
+		
+		// Search for the site the image comes from
+	    foreach ( $blog_list AS $blog ) {
+	    	switch_to_blog( $blog['blog_id'] );
+	    	if ( wp_get_attachment_image_src( $id, 'full') != '' ) break;
+	    }
+	    	    
+	    $caption = get_post_field( 'post_excerpt', $id );
+	    $title = get_post_field( 'post_title', $id );
+	    $image_src = wp_get_attachment_image_src( $id, 'full' );
+	    $image = wp_get_attachment_image($id, 'large');
+	    	    
+	    $output = '<figure class="media-'. $id .' '. $class .'">';
+	    
+	    if ($image_src[1] > 960) {
+	    
+	    	if (is_single())
+	    		$link = $image_src[0];
+	    	else
+	    		$link = get_permalink($post->ID);
+	    		
+	    	$output .= '<a href="'. $link .'">'. $image .'</a>';
+	    	
+	    } else {
+	    
+	    	$output .= wp_get_attachment_image($id, 'full');    
+	    }
+	    if ($caption)
+	    	$output .= "<figcaption><strong>$title:</strong> $caption</figcaption>";
+	    $output .= '</figure>';
+	    restore_current_blog();
+	    return $output;
+	}
+	add_shortcode('image', 'image_shortcode');
 
 /***************************************************************
 * 3.9 Customize Theme
 ***************************************************************/
 
 	function theme_customize_register( $wp_customize ) {
-	   $wp_customize->add_setting( 'highlight_color' , array(
-	       'default' => '#08c',
-	       'type'		=> 'theme_mod',
-	       'capability'	=> 'edit_theme_options',
-	       'transport' => 'postMessage'
-	   ) );
-	   $wp_customize->add_section( 'theme_colors' , array(
-	       'title'      => __('Custom Colors', 'jbm'),
-	       'priority'   => 30,
-	   ) );
-	   $wp_customize->add_control( new WP_Customize_Color_Control( $wp_customize, 'highlight_color', array(
-	   	'label'        => __( 'Highlight Color', 'jbm' ),
-	   	'section'    => 'theme_colors',
-	   	'settings'   => 'highlight_color',
-	   ) ) );
+		
+		// COLORS
+		$wp_customize->add_section( 'theme_colors' , array(
+		   'title'      => __('Custom Colors', 'jbm'),
+		   'priority'   => 30,
+		) );
+		$wp_customize->add_setting( 'highlight_color' , array(
+		   'default' 	=> '#08c',
+		   'type'		=> 'theme_mod',
+		   'transport' 	=> 'postMessage'
+		) );
+		$wp_customize->add_control( new WP_Customize_Color_Control( $wp_customize, 'highlight_color', array(
+			'label'      => __( 'Highlight Color', 'jbm' ),
+			'section'    => 'theme_colors',
+			'settings'   => 'highlight_color',
+		) ) );
+		
+		// LOGO
+		$wp_customize->add_section( 'theme_text' , array(
+		   'title'      => __('Logo', 'jbm'),
+		   'priority'   => 30,
+		) );
+		$wp_customize->add_setting( 'logo_text' , array(
+		   'default' 	=> get_bloginfo('name'),
+		   'type'		=> 'theme_mod'
+		) );
+		$wp_customize->add_control( new WP_Customize_Control( $wp_customize, 'logo_text', array(
+			'label'      => __( 'Logo Text', 'jbm' ),
+			'section'    => 'theme_text',
+			'settings'   => 'logo_text',
+		) ) );
+		
+		// ACCOUNTS
+		$wp_customize->add_section( 'theme_accounts' , array(
+		   'title'      => __('Acounts', 'jbm'),
+		   'priority'   => 30,
+		) );
+		$wp_customize->add_setting( 'ga_code' , array(
+		   'default' 	=> get_bloginfo('Google Analytics Tracking Code'),
+		   'type'		=> 'theme_mod'
+		) );
+		$wp_customize->add_control( new WP_Customize_Control( $wp_customize, 'ga_code', array(
+			'label'      => __( 'Google Analytics Tracking Code', 'jbm' ),
+			'section'    => 'theme_accounts',
+			'settings'   => 'ga_code',
+		) ) );
+		
+		// FAVICONS
+		$wp_customize->add_section( 'favicons' , array(
+		   'title'      => __('Favicons', 'jbm'),
+		   'priority'   => 30,
+		) );
+		$wp_customize->add_setting( 'favicon_ico' , array(
+		   'type'		=> 'theme_mod'
+		) );
+		$wp_customize->add_control( new WP_Customize_Upload_Control( $wp_customize, 'favicon_ico', array(
+			'label' 	 => __( 'Favicon (.ico)', 'jbm' ),
+			'section'    => 'favicons',
+			'settings'   => 'favicon_ico',
+		) ) );
+		$wp_customize->add_setting( 'favicon_png' , array(
+		   'type'		=> 'theme_mod'
+		) );
+		$wp_customize->add_control( new WP_Customize_Upload_Control( $wp_customize, 'favicon_png', array(
+			'label' 	 => __( 'Favicon (.png)', 'jbm' ),
+			'section'    => 'favicons',
+			'settings'   => 'favicon_png',
+		) ) );
+		$wp_customize->add_setting( 'favicon_apple' , array(
+		   'type'		=> 'theme_mod'
+		) );
+		$wp_customize->add_control( new WP_Customize_Upload_Control( $wp_customize, 'favicon_apple', array(
+			'label' 	 => __( 'Apple Touch Icon (.png)', 'jbm' ),
+			'section'    => 'favicons',
+			'settings'   => 'favicon_apple',
+		) ) );
 	}
 	add_action( 'customize_register', 'theme_customize_register' );
+	
+	
+	function addUploadMimes($mimes) {
+	    $mimes = array_merge($mimes, array(
+	        'ico' => 'image/x-icon'
+	    ));
+	 
+	    return $mimes;
+	}
+	add_filter('upload_mimes', 'addUploadMimes');
 	
 	
 	function custom_less_vars( $vars, $handle ) {
@@ -353,5 +477,59 @@ add_shortcode('image', 'image_shortcode');
 	add_filter( 'less_vars', 'custom_less_vars', 10, 2 );
 	
 /***************************************************************
+* 3.10 Make twitter embedd responsive
+***************************************************************/
+
+	add_filter( 'embed_oembed_html', 'twitter_no_width', 10, 3 );
+	
+	function twitter_no_width($html, $url, $args) {
+		if (false !== strpos($url, 'twitter.com')) {
+			$html = str_replace('width="500"','',$html);
+		}
+		return $html;
+	}
+
+/***************************************************************
+* 3.11 Overwrite Notes Plugin 
+***************************************************************/
+
+	add_filter( 'jbm_notes_title', 'translate_notes_title' );
+	
+	function translate_notes_title() {
+		return __( 'Notes', 'jbm' );
+	}
+	
+/***************************************************************
+* 3.12 Embedd Gist links
+***************************************************************/
+
+	wp_embed_register_handler( 'gists', '/\s*gist.github.com?.+\/(\d+)/', 'wp_embed_handler_gists' );
+	
+	function wp_embed_handler_gists( $matches, $attr, $url, $rawattr ) {
+		
+		if (false !== strpos($url, 'github.com'))
+			return '[gist id='. $matches[1] .']';
+		else
+			return $url;		
+	}
+	
+/***************************************************************
+* 3.13 Allow fullscreen video embeds
+***************************************************************/
+
+	add_filter( 'embed_oembed_html', 'video_in_figure', 10, 3 );
+	
+	function video_in_figure($html, $url, $args) {
+		
+		if (false !== strpos($url, 'youtube.com')) {
+			$html = str_replace("<p><span class='embed-youtube'", "<figure><span class='embed-youtube'", $html);
+			$html = str_replace("</iframe></span></p>", "</iframe></span></figure>", $html);
+		}
+		
+		return $html;
+	}
+	
+/***************************************************************
 * X.X Code Template
 ***************************************************************/
+	
