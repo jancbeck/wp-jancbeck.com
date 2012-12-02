@@ -1,6 +1,12 @@
 /* =============================================================================
    Typography
    ========================================================================== */
+   
+p {
+	margin-top: 1.5em;
+	margin-bottom: 1.5em;
+}
+
 /*
  * Addresses styling not present in IE7/8/9, S5, Chrome
  */
@@ -46,6 +52,12 @@ kbd,
 samp {
     font-family: @monoFontFamily, monospace, serif;
     font-size: 1em;
+}
+code {
+	border: 1px solid @light;
+	color: @dark;
+	.border-radius();
+	padding: 0 .4em;
 }
 
 /*
@@ -108,19 +120,25 @@ sub {
 h1, h2, h3, h4, h5, h6,
 .heading {
 	font-family: @sansFontFamily;
+	line-height: 1.2;
+	margin-top: 2em;
+	margin-bottom: 1em;
+}
+h1, .page-title {
+	font-size: 2em;
+	margin-top: 1em;
+	margin-bottom: .5em;
 	text-align: center;
 }
-h1 {
-	font-size: 3em;
-}
 h2 {
-	font-size: 2em;
-	margin-top: 2em;
-	margin-bottom: .5em;
+	text-align: center;
+	
+	.archive &,
+	.blog & {
+		.page-title
+	}
 }
-h4 {
-	text-align: left;
-}
+
 
 /* @end */
 
@@ -145,8 +163,8 @@ a:active {
     outline: 0;
 }
 
-a { color: @linkColor; text-decoration: none; }
-a:hover { color: @textColor; }
+a { color: @linkColor; text-decoration: none; border-bottom: .15em solid transparent; }
+a:hover { border-bottom-color: @highlight; }
 
 h1 a,
 h2 a,
@@ -184,80 +202,25 @@ html {
     -ms-text-size-adjust: 100%; /* 3 */
 }
 body {
-	margin: auto;
 	color: @textColor;
 	line-height: @baseLineHeight;
 	font-family: @serifFontFamily;
 }
-@media screen and (max-width: 50em) {
-	body {
+@media screen and (max-width: 35em) {
+	body,
+	pre,
+	code,
+	kbd,
+	samp {
 		font-size: .9em;
 	}
 }
 @media screen and (max-width: 30em) {
-	body {
+	body,
+	pre,
+	code,
+	kbd,
+	samp {
 		font-size: .8em;
-	}
-}
-nav[role=navigation] ul {
-	margin: auto;
-	list-style: none;
-}
-main[role=main] {
-	max-width: 60em;
-	margin: auto;
-	display: block;
-}
-article[role=article] {
-	> p,
-	figcaption,
-	> ul, > ol, > dl,
-	h1, h2, h3, h4, h5, h6,
-	blockquote,
-	> .heading {
-		max-width: 570px	;
-		margin-left: auto;
-		margin-right: auto;
-		padding-left: 2em;
-		padding-right: 2em;
-	}
-	blockquote {
-		.center();
-		max-width: 31em;
-	}
-	> table,
-	> form {
-		padding-left: 2em;
-		padding-right: 2em;
-	}
-}
-blockquote,
-img {
-	.center();
-}
-p {
-	margin-top: 1.5em;
-	margin-bottom: 1.5em;
-}
-table,
-pre {
-	width: 95%;
-	margin: auto;
-	margin: .5em auto;
-}
-.post-date {
-	text-align: center;
-	font-family: @sansFontFamily;
-	text-transform: uppercase;
-	color: #aaa;
-	margin-top: 0;
-}
-blockquote {
-	border-left: .5em solid #eee;
-	font-style: italic;
-	
-	blockquote {
-		.font-size(19, 19);
-		/* We have to go deeper! */
 	}
 }
