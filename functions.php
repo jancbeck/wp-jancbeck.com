@@ -412,21 +412,6 @@ require_once( 'libs/wp-less/wp-less.php' );
 			'settings'   => 'logo_text',
 		) ) );
 		
-		// ACCOUNTS
-		$wp_customize->add_section( 'theme_accounts' , array(
-		   'title'      => __('Acounts', 'jbm'),
-		   'priority'   => 30,
-		) );
-		$wp_customize->add_setting( 'ga_code' , array(
-		   'default' 	=> get_bloginfo('Google Analytics Tracking Code'),
-		   'type'		=> 'theme_mod'
-		) );
-		$wp_customize->add_control( new WP_Customize_Control( $wp_customize, 'ga_code', array(
-			'label'      => __( 'Google Analytics Tracking Code', 'jbm' ),
-			'section'    => 'theme_accounts',
-			'settings'   => 'ga_code',
-		) ) );
-		
 		// FAVICONS
 		$wp_customize->add_section( 'favicons' , array(
 		   'title'      => __('Favicons', 'jbm'),
