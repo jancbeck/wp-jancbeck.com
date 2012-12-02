@@ -332,6 +332,7 @@ function debug( $msg ) {
 	}
 	add_filter( 'image_send_to_editor', 'insert_image_shortcode', 10, 9 );
 	
+	if ( ! isset( $content_width ) ) $content_width = 960;
 	function image_shortcode( $atts ) {
 		
 		global $post;
@@ -476,6 +477,7 @@ function debug( $msg ) {
 	function twitter_no_width($html, $url, $args) {
 		if (false !== strpos($url, 'twitter.com')) {
 			$html = str_replace('width="500"','',$html);
+			$html = str_replace('width="550"','',$html);
 		}
 		return $html;
 	}
