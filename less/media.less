@@ -45,9 +45,7 @@ audio:not([controls]) {
 div[id|=twitter][style],
 div[id|=twitter],
 .twitter-tweet-rendered {
-	max-width: 95% !important;
-	margin: 3em auto !important;
-	width: auto !important;
+	margin: 2em auto !important;
 	
 	.twt-border {
 		margin: auto !important;
@@ -63,8 +61,12 @@ figcaption {
 	margin-top: 1.5em;
 	margin-bottom: -1em;
 	font-style: italic;
+	
+	strong {
+		font-style: normal;
+	}
 }
-// http://www.thejtsite.com/blog/single/responsive-youtube-videos-in-wordpress
+/* http://www.thejtsite.com/blog/single/responsive-youtube-videos-in-wordpress */
 .embed-youtube,
 .embed-vimeo {
 	position: relative;
@@ -83,4 +85,6 @@ figcaption {
 		height: 100%;
 	}
 }
-
+.circled img {
+	.border-radius(100%);
+}
