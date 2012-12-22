@@ -2,11 +2,16 @@
 
 Private blog theme hosted on github.
 
+## Recommended plugins
+[Simple Footnotes](http://wordpress.org/extend/plugins/simple-footnotes/)
+[Jetpack by WordPress.com](http://wordpress.org/extend/plugins/jetpack/)
+[Use Google Libraries](http://jasonpenney.net/wordpress-plugins/use-google-libraries/)
+
 ## To Do
 
 * Remove German comments
 * Add hooks & filters for plugins
-* Buttons for reference in editor
+* Buttons for reference and cite in editor
 * Show youtube embeds as figure element
 * Make gists more pretty on mobile
 * Clean code style
@@ -14,9 +19,15 @@ Private blog theme hosted on github.
 * Add portfolio page
 * Add blog index page
 * Add archive
+* Prettify contact form
+* Test table of content in feed
+* Save changes in table of contents plugin
+* Find a way to optionally hide and automatically enable Table of Contents
 * Create theme class for functions
+* Print Styles
+* Separate some functions from theme to external plugins e.g. image shortcode
 * Enhance [image] shortcode:
 	* Make it possible to overwrite all kinds of attributes: title, alt, src, class, width, height
 	* Support external non-local images
-	* Support photon parameters: http://developer.wordpress.com/docs/photon/ + http://plugins.trac.wordpress.org/browser/jetpack/trunk/modules/photon.php#L233
+	* Support photon parameters: http://developer.wordpress.com/docs/photon/ + http://plugins.trac.wordpress.org/browser/jetpack/trunk/modules/photon.php#L233 Make them addable from the upload dialog.
 	* Maybe convert to its own plugin
