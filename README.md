@@ -3,9 +3,9 @@
 Private blog theme hosted on github.
 
 ## Recommended plugins
-[Simple Footnotes](http://wordpress.org/extend/plugins/simple-footnotes/)
-[Jetpack by WordPress.com](http://wordpress.org/extend/plugins/jetpack/)
-[Use Google Libraries](http://jasonpenney.net/wordpress-plugins/use-google-libraries/)
+* [Simple Footnotes](http://wordpress.org/extend/plugins/simple-footnotes/)
+* [Jetpack by WordPress.com](http://wordpress.org/extend/plugins/jetpack/)
+* [Use Google Libraries](http://jasonpenney.net/wordpress-plugins/use-google-libraries/)
 
 ## To Do
 
