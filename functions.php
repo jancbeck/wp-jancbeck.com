@@ -26,6 +26,7 @@
 * 		3.12 Embedd Gist links
 * 		3.13 Allow fullscreen video embeds
 * 		3.14 Disable Jetpack Opengraph
+* 		3.15 List Tags shortcode
 * 
 ***************************************************************/
 
@@ -255,7 +256,7 @@ function debug( $msg ) {
 			return $content . "[image id='$id']";
 			
 		// on single post insert thumbnail into article flow
-		return str_replace( '<p><span id="more-', '[image id="'. $id .'"]<p><span id="more-', $content );
+		return str_replace( '<p><span id="more-', '[image id="'. $id .'"][toc levels=2 title="Table of Contents"]<p><span id="more-', $content );
 	}
 	add_filter( 'the_content', 'add_post_thumbnail_to_content' );
 	
@@ -547,6 +548,25 @@ function debug( $msg ) {
 ***************************************************************/
 
 	remove_action('wp_head','jetpack_og_tags');	
+	
+/***************************************************************
+* 3.15 List Tags shortcode
+***************************************************************/
+
+	function get_tag_list( $atts ){
+		$output = '';
+		$posttags = get_tags('orderby=count');
+		$sep = '';
+		if ($posttags) {
+			$output .= '<p>';
+			foreach($posttags as $tag) {
+				$output .= $sep .'<a href="'. get_tag_link($tag->term_id) .'">'. $tag->name .'</a>'; 
+				$sep = ', ';
+			}
+		}
+		return $output;
+	}
+	add_shortcode( 'tags', 'get_tag_list' );
 
 /***************************************************************
 * X.X Code Template
