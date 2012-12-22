@@ -2,6 +2,9 @@
 
 Private blog theme hosted on github.
 
+## Required plugins
+* [LESS CSS Auto Compiler](https://github.com/sanchothefat/wp-less/)
+
 ## Recommended plugins
 * [Simple Footnotes](http://wordpress.org/extend/plugins/simple-footnotes/)
 * [Jetpack by WordPress.com](http://wordpress.org/extend/plugins/jetpack/)
@@ -19,6 +22,7 @@ Private blog theme hosted on github.
 * Add portfolio page
 * Add blog index page
 * Add archive
+* Add submodules for ChromePHP and LESS CSS Auto Compiler
 * Prettify contact form
 * Test table of content in feed
 * Save changes in table of contents plugin
