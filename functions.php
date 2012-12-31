@@ -27,6 +27,7 @@
 * 		3.13 Allow fullscreen video embeds
 * 		3.14 Disable Jetpack Opengraph
 * 		3.15 List Tags shortcode
+* 		3.16 Get Sites patch
 * 
 ***************************************************************/
 
@@ -348,7 +349,7 @@ function debug( $msg ) {
 	    	return '';
 	    
 	    $save_id = get_current_blog_id();
-	    $blog_list = get_blog_list( 0, 'all' );
+	    $blog_list = wp_get_sites( 0, 'all' );
 	    		
 		// Search for the site the image comes from
 	    foreach ( $blog_list AS $blog ) {
@@ -569,5 +570,128 @@ function debug( $msg ) {
 	add_shortcode( 'tags', 'get_tag_list' );
 
 /***************************************************************
+* 3.16 Get Sites patch
+* http://core.trac.wordpress.org/ticket/14511
+***************************************************************/
+
+	if( !function_exists('wp_get_sites') ) {
+		
+		/**
+		 * Return a list of sites for the current network
+		 *
+		 * @since 3.5.0
+		 *
+		 * @param array|string $args Optional. Override default arguments.
+		 * @return array site list and values
+		 */
+		 
+		function wp_get_sites( $args = array() ) {
+		
+			// replacement for wp-includes/ms-deprecated.php#get_blog_list
+			// see wp-admin/ms-sites.php#352
+			//  also wp-includes/ms-functions.php#get_blogs_of_user
+			//  also wp-includes/post-template.php#wp_list_pages
+			
+			global $wpdb;
+	
+			$defaults = array(
+				'include_public'	=> '1',			// Include blogs marked as public
+				'include_archived'	=> '0',			// Include archived sites
+				'include_mature'	=> '0',			// Included blogs marked as mature
+				'include_spam'		=> '0',			// Include sites marked as "spam"
+				'include_deleted'	=> '0',			// Include deleted sites
+				'domain'			=> '',			// domain is this value
+				'path'				=> '',			// path is like this value
+				'reg_date_since'	=> '',			// sites registered since (accepts pretty much any valid date like tomorrow, today, 5/12/2009, etc.)
+				'reg_date_before'	=> '',			// sites registered before
+				'sort_column'		=> 'registered',// or last_updated, blogname, site_id.
+				'order'				=> 'desc',		// or asc
+				'limit_results'		=> '',			// return this many results
+				'start'				=> '',			// return results starting with this item
+				'postcount'			=> false		// add postcount info - default to false
+			);
+	
+			$r = wp_parse_args( $args, $defaults );
+			extract( $r, EXTR_SKIP );
+	
+			$query = "SELECT * FROM $wpdb->blogs WHERE site_id = %d ";
+			$query_args = Array( $wpdb->siteid );
+	
+			foreach( Array( 'public', 'archived', 'mature', 'spam', 'deleted' ) as $param ) {
+				$var = "include_{$param}";
+				$var = $$var;
+				if ( $var == 1 )
+					$query .= " AND $param = '1' ";
+				elseif ( ( $var === 0 ) || ( $var === '0' ) )
+					$query .= " AND $param = '0' ";
+			}
+	
+			if ( !empty( $domain ) ) {
+				$query .= " AND ( domain = '%s' ) ";
+				$query_args[] = $domain;
+			}
+	
+			if ( !empty( $path ) ) {
+				$query .= " AND ( path LIKE '%%%s%%' ) ";
+				$query_args[] = $path;		
+			}
+	
+			if( !empty( $reg_date_since ) ) {
+				$query .= " AND unix_timestamp( b.date_registered ) > '%s' ";
+				$query_args[] = strtotime( $reg_date_since );
+			}
+			if( !empty( $reg_date_before ) ) {
+				$query .= " AND unix_timestamp( b.date_registered ) < '%s' ";
+				$query_args[] = strtotime( $reg_date_before );
+			}
+	
+			$sort_column = strtolower( $sort_column );
+	
+			if ( !in_array( $sort_column, Array( 'registered', 'last_updated', 'blog_id', 'domain' ) ) )
+				$sort_column = 'registered';
+	
+			$query .= " ORDER BY {$sort_column} ";
+			$order = strtoupper( $order );
+			if ( $order !== 'ASC' ) $order = 'DESC';
+			$query .= $order;
+	
+			if ( !empty( $start ) || !empty( $limit_results ) ) {
+				if ( empty( $start ) )
+					$start = 0;
+				else
+					$start = absint( $start );
+				if ( empty( $limit_results ) )
+					$limit_results = '18446744073709551615'; // 2^64 - 1 -- see docs for LIMIT in http://dev.mysql.com/doc/refman/5.0/en/select.html
+				else
+					$limit_results = absint( $limit_results );
+				
+				if ( empty( $start ) ) {
+					if ( !empty( $limit_results ) ) $query .= " LIMIT $limit_results";
+				} else {
+					$query .= " LIMIT $start, $limit_results";
+				}
+			}
+	
+			$blogs = $wpdb->get_results( $wpdb->prepare( $query, $query_args ), ARRAY_A );
+			$blog_list = Array();
+	
+			foreach ( (array) $blogs as $details ) {
+				$blog_list[ $details['blog_id'] ] = $details;
+				if ( $postcount )
+					$blog_list[ $details['blog_id'] ]['postcount'] = $wpdb->get_var( "SELECT COUNT(ID) FROM " . $wpdb->get_blog_prefix( $details['blog_id'] ). "posts WHERE post_status='publish' AND post_type='post'" );
+			}
+			unset( $blogs );
+			$blogs = $blog_list;
+	
+			if ( false == is_array( $blogs ) )
+				return array();
+	
+			return $blogs;
+		}
+	}
+	
+
+/***************************************************************
 * X.X Code Template
 ***************************************************************/
+
